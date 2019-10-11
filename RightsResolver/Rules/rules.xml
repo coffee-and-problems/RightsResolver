@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<rulesDeclaration>
+
+  <rule>
+    <user>
+      <department>0</department>
+      <post></post>
+    </user>
+    <oorv>yes</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <AllProducts>boatswain</AllProducts>
+    </support>
+  </rule>
+
+  <rule>
+    <user>
+      <department>1</department>
+      <post></post>
+    </user>
+    <oorv>yes</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <AllProducts>cabinBoy</AllProducts>
+    </support>
+  </rule>
+
+  <rule>
+    <user>
+      <department>2</department>
+      <post>супервизор</post>
+    </user>
+    <oorv>no</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <AllProducts>cabinBoy</AllProducts>
+      <Продукт1>boatswain</Продукт1>
+      <Продукт2>boatswain</Продукт2>
+      <Продукт3>boatswain</Продукт3>
+    </support>
+  </rule>
+
+  <rule>
+    <user>
+      <department>2</department>
+      <post></post>
+    </user>
+    <oorv>no</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <AllProducts>cabinBoy</AllProducts>
+    </support>
+  </rule>
+
+  <rule>
+    <user>
+      <department>3</department>
+      <group>Группа технической поддержки клиентов</group>
+      <post></post>
+    </user>
+    <oorv>no</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <AllProducts>cabinBoy</AllProducts>
+    </support>
+  </rule>
+
+  <rule>
+    <user>
+      <department>4</department>
+      <post></post>
+    </user>
+    <oorv>yes</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <AllProducts>admin</AllProducts>
+    </support>
+  </rule>
+
+  <rule>
+    <user>
+      <department>5</department>
+      <group>Группа сопровождения ключевых клиентов</group>
+      <post></post>
+    </user>
+    <oorv>no</oorv>
+    <health>no</health>
+    <managerArm>no</managerArm>
+    <support>
+      <permission>yes</permission>
+      <Продукт4>boatswain</Продукт4>
+      <Продукт5>cabinBoy</Продукт5>
+    </support>
+  </rule>
+
+</rulesDeclaration>
