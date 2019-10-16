@@ -10,8 +10,6 @@ namespace RightsResolver
     {
         public int id { get; }
         public int department { get; }
-        public string group { get; }
         public string post { get; } 
-        public Rights rights { get; set; }
     }
 }

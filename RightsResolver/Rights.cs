@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class Rights
+    class Right
     {
+
     }
 
     class Oorv

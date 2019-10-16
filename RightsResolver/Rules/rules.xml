@@ -1,109 +1,132 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 
 <rulesDeclaration>
-
   <rule>
     <user>
-      <department>0</department>
-      <post></post>
+      <Position>
+        <Department>department1</Department>
+        <Post>post1</Post>
+      </Position>
     </user>
-    <oorv>yes</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <AllProducts>boatswain</AllProducts>
-    </support>
+    <Access>
+      <Platform>Oorv</Platform>
+      <Role>admin</Role>
+    </Access>
+    
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>All</Product>
+        <Role>boatswain</Role>
+      </ProductRole>
+    </Access>
   </rule>
 
   <rule>
     <user>
-      <department>1</department>
-      <post></post>
+      <Position>
+        <Department>department2</Department>
+        <Post>post1</Post>
+      </Position>
     </user>
-    <oorv>yes</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <AllProducts>cabinBoy</AllProducts>
-    </support>
+    <Access>
+      <Platform>Oorv</Platform>
+    </Access>
+    
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>All</Product>
+        <Role>cabinBoy</Role>
+      </ProductRole>
+    </Access>
   </rule>
 
   <rule>
     <user>
-      <department>2</department>
-      <post>супервизор</post>
+      <Position>
+        <Department>department3</Department>
+        <Post>superpost</Post>
+      </Position>
     </user>
-    <oorv>no</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <AllProducts>cabinBoy</AllProducts>
-      <Продукт1>boatswain</Продукт1>
-      <Продукт2>boatswain</Продукт2>
-      <Продукт3>boatswain</Продукт3>
-    </support>
+    
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>All</Product>
+        <Role>cabinBoy</Role>
+      </ProductRole>
+      <ProductRole>
+        <Product>product1</Product>
+        <Role>boatswain</Role>
+      </ProductRole>
+      <ProductRole>
+        <Product>product2</Product>
+        <Role>boatswain</Role>
+      </ProductRole>
+      <ProductRole>
+        <Product>product3</Product>
+        <Role>boatswain</Role>
+      </ProductRole>
+    </Access>
   </rule>
 
   <rule>
     <user>
-      <department>2</department>
-      <post></post>
+      <Position>
+        <Department>department3</Department>
+        <Post>post2</Post>
+      </Position>
     </user>
-    <oorv>no</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <AllProducts>cabinBoy</AllProducts>
-    </support>
+    
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>All</Product>
+        <Role>cabinBoy</Role>
+      </ProductRole>
+    </Access>
   </rule>
 
   <rule>
     <user>
-      <department>3</department>
-      <group>Группа технической поддержки клиентов</group>
-      <post></post>
+      <Position>
+        <Department>department4</Department>
+        <Department>group1</Department>
+        <Post>post1</Post>
+      </Position>
     </user>
-    <oorv>no</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <AllProducts>cabinBoy</AllProducts>
-    </support>
+    
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>All</Product>
+        <Role>cabinBoy</Role>
+      </ProductRole>
+    </Access>
   </rule>
 
   <rule>
     <user>
-      <department>4</department>
-      <post></post>
+      <Position>
+        <Department>department5</Department>
+        <Post>post1</Post>
+      </Position>
     </user>
-    <oorv>yes</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <AllProducts>admin</AllProducts>
-    </support>
+    
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>Product4</Product>
+        <Role>boatswain</Role>
+      </ProductRole>
+    </Access>
+    <Access>
+      <Platform>Support</Platform>
+      <ProductRole>
+        <Product>Product5</Product>
+        <Role>cabinBoy</Role>
+      </ProductRole>
+    </Access>
   </rule>
-
-  <rule>
-    <user>
-      <department>5</department>
-      <group>Группа сопровождения ключевых клиентов</group>
-      <post></post>
-    </user>
-    <oorv>no</oorv>
-    <health>no</health>
-    <managerArm>no</managerArm>
-    <support>
-      <permission>yes</permission>
-      <Продукт4>boatswain</Продукт4>
-      <Продукт5>cabinBoy</Продукт5>
-    </support>
-  </rule>
-
 </rulesDeclaration>

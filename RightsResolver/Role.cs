@@ -8,9 +8,9 @@ namespace RightsResolver
 {
     enum Role
     {
-        None,
-        Admin,
-        Boatswain,
-        CabinBoy
+        RoreI,
+        RoreII,
+        RoreIII,
+        Admin
     }
 }

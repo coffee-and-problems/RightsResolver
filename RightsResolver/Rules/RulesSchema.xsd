@@ -8,27 +8,45 @@
 
         <xs:element name ="rule" maxOccurs="unbounded">
           <xs:complexType>
-            <xs:all>
-              <xs:element name="user">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="department" type="xs:integer"></xs:element>
-                    <xs:element name="group" type="xs:string" minOccurs="0"></xs:element>
-                    <xs:element name="post" type="xs:string"></xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="oorv" type="Permission"/>
-              <xs:element name="health" type="Permission"/>
-              <xs:element name="managerArm" type="Permission"/>
-              <xs:element name="support" type="SupportPermission"/>
-            </xs:all>
+            <xs:sequence>
+              <xs:element name="user" type="User"/>
+              <xs:element name="Access" type="Access" maxOccurs="unbounded"/>
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
 
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="User">
+    <xs:sequence>
+      <xs:element name="Position" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name ="Department" type="xs:string" maxOccurs="unbounded"></xs:element>
+            <xs:element name ="Post" type="xs:string" maxOccurs="1"></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Access">
+    <xs:sequence>
+      <xs:element name ="Platform" type="xs:string"></xs:element>
+      <xs:element name ="Role" type="Role" minOccurs="0"></xs:element>
+      <xs:element name ="ProductRole" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Product" type="xs:string"/>
+            <xs:element name="Role" type="Role"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:simpleType name="Role">
     <xs:restriction base="xs:string">
@@ -37,26 +55,5 @@
       <xs:enumeration value="cabinBoy"/>
     </xs:restriction>
   </xs:simpleType>
-
-  <xs:simpleType name="Permission">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="yes"/>
-      <xs:enumeration value="no"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:complexType name="SupportPermission">
-    <xs:all>
-      <xs:element name="permission" type="Permission"></xs:element>
-      <xs:element name="AllProducts" type="Role" minOccurs="0"/>
-
-      <xs:element name="Продукт1" type="Role" minOccurs="0"> </xs:element>
-      <xs:element name="Продукт2" type="Role" minOccurs="0"> </xs:element>
-      <xs:element name="Продукт3" type="Role" minOccurs="0"> </xs:element>
-      <xs:element name="Продукт4" type="Role" minOccurs="0"> </xs:element>
-      <xs:element name="Продукт5" type="Role" minOccurs="0"> </xs:element>
-
-    </xs:all>
-  </xs:complexType>
 
 </xs:schema>
