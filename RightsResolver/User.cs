@@ -8,8 +8,13 @@ namespace RightsResolver
 {
     class User
     {
-        public int id { get; }
-        public int department { get; }
-        public string post { get; } 
+        public int UserId { get; }
+        public Position[] UserPositions { get; }
+    }
+
+    class Position
+    {
+        public int[] Departments { get; }
+        public string Post { get; }
     }
 }

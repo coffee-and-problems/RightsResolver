@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class Product
+    class UserRights
     {
-        public string name { get; }
-        public bool haveAccess { get; }
-        public Role role { get; }
+
     }
 }
