@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class UserRights
+    class PlatformAccess : IAccess
     {
-        public int UserId { get; }
-        public IEnumerable<IAccess> Access { get; }
+        public string Platform { get; }
+        public Role Role { get; }
     }
 }

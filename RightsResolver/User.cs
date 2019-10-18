@@ -9,7 +9,7 @@ namespace RightsResolver
     class User
     {
         public int UserId { get; }
-        public Position[] UserPositions { get; }
+        public IEnumerable<Position> UserPositions { get; }
     }
 
     class Position
