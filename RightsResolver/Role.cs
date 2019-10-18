@@ -2,9 +2,9 @@
 {
     enum Role
     {
-        RoreI,
-        RoreII,
-        RoreIII,
+        RoleI,
+        RoleII,
+        RoleIII,
         Admin
     }
 }
