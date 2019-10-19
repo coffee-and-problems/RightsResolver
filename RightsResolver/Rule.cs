@@ -8,7 +8,8 @@ namespace RightsResolver
 {
     class Rule
     {
-        private Position position;
+        public int Department { get; }
+        public string Post { get; }
         public List<IAccess> Access { get; }
     }
 }
