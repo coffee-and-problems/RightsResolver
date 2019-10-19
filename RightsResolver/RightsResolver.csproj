@@ -48,11 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAccess.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="ProductAccess.cs" />
     <Compile Include="Resolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolverShould.cs" />
     <Compile Include="PlatformAccess.cs" />
+    <Compile Include="Rule.cs" />
     <Compile Include="UserRights.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />

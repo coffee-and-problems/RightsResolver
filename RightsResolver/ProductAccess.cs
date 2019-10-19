@@ -9,7 +9,7 @@ namespace RightsResolver
     class ProductAccess : IAccess
     {
         public string Platform { get; }
-        public IEnumerable<ProductRole> Products { get; }
+        public List<ProductRole> Products { get; }
     }
 
     class ProductRole

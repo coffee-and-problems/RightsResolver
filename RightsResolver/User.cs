@@ -8,8 +8,8 @@ namespace RightsResolver
 {
     class User
     {
-        public int UserId { get; }
-        public IEnumerable<Position> UserPositions { get; }
+        public Guid UserId { get; }
+        public List<Position> UserPositions { get; }
     }
 
     class Position

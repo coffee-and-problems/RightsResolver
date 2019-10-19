@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class UserRights
+    enum Platform
     {
-        public int UserId { get; }
-        public List<IAccess> Access { get; }
+        Oorv,
+        Health,
+        Manager,
+        Support
     }
 }

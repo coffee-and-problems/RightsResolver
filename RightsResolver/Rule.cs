@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class UserRights
+    class Rule
     {
-        public int UserId { get; }
+        private User user;
         public List<IAccess> Access { get; }
+        public Guid GetUserId() => user.UserId;
     }
 }

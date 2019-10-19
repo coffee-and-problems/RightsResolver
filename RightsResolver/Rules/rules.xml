@@ -4,7 +4,7 @@
   <rule>
     <user>
       <Position>
-        <Department>department1</Department>
+        <Department>1</Department>
         <Post>post1</Post>
       </Position>
     </user>
@@ -17,7 +17,7 @@
       <Platform>Support</Platform>
       <ProductRole>
         <Product>All</Product>
-        <Role>boatswain</Role>
+        <Role>RoleII</Role>
       </ProductRole>
     </Access>
   </rule>
@@ -25,7 +25,7 @@
   <rule>
     <user>
       <Position>
-        <Department>department2</Department>
+        <Department>2</Department>
         <Post>post1</Post>
       </Position>
     </user>
@@ -37,7 +37,7 @@
       <Platform>Support</Platform>
       <ProductRole>
         <Product>All</Product>
-        <Role>cabinBoy</Role>
+        <Role>RoleI</Role>
       </ProductRole>
     </Access>
   </rule>
@@ -45,7 +45,7 @@
   <rule>
     <user>
       <Position>
-        <Department>department3</Department>
+        <Department>3</Department>
         <Post>superpost</Post>
       </Position>
     </user>
@@ -54,19 +54,19 @@
       <Platform>Support</Platform>
       <ProductRole>
         <Product>All</Product>
-        <Role>cabinBoy</Role>
+        <Role>RoleI</Role>
       </ProductRole>
       <ProductRole>
         <Product>product1</Product>
-        <Role>boatswain</Role>
+        <Role>RoleII</Role>
       </ProductRole>
       <ProductRole>
         <Product>product2</Product>
-        <Role>boatswain</Role>
+        <Role>RoleII</Role>
       </ProductRole>
       <ProductRole>
         <Product>product3</Product>
-        <Role>boatswain</Role>
+        <Role>RoleII</Role>
       </ProductRole>
     </Access>
   </rule>
@@ -74,7 +74,7 @@
   <rule>
     <user>
       <Position>
-        <Department>department3</Department>
+        <Department>3</Department>
         <Post>post2</Post>
       </Position>
     </user>
@@ -83,7 +83,7 @@
       <Platform>Support</Platform>
       <ProductRole>
         <Product>All</Product>
-        <Role>cabinBoy</Role>
+        <Role>RoleI</Role>
       </ProductRole>
     </Access>
   </rule>
@@ -91,7 +91,7 @@
   <rule>
     <user>
       <Position>
-        <Department>department4</Department>
+        <Department>4</Department>
         <Department>group1</Department>
         <Post>post1</Post>
       </Position>
@@ -101,7 +101,7 @@
       <Platform>Support</Platform>
       <ProductRole>
         <Product>All</Product>
-        <Role>cabinBoy</Role>
+        <Role>RoleI</Role>
       </ProductRole>
     </Access>
   </rule>
@@ -109,7 +109,7 @@
   <rule>
     <user>
       <Position>
-        <Department>department5</Department>
+        <Department>5</Department>
         <Post>post1</Post>
       </Position>
     </user>
@@ -118,14 +118,14 @@
       <Platform>Support</Platform>
       <ProductRole>
         <Product>Product4</Product>
-        <Role>boatswain</Role>
+        <Role>RoleII</Role>
       </ProductRole>
     </Access>
     <Access>
       <Platform>Support</Platform>
       <ProductRole>
         <Product>Product5</Product>
-        <Role>cabinBoy</Role>
+        <Role>RoleI</Role>
       </ProductRole>
     </Access>
   </rule>
