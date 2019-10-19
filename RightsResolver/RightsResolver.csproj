@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Position.cs" />
     <Compile Include="IAccess.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="ProductAccess.cs" />

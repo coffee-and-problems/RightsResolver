@@ -8,8 +8,7 @@ namespace RightsResolver
 {
     class Rule
     {
-        private User user;
+        private Position position;
         public List<IAccess> Access { get; }
-        public Guid GetUserId() => user.UserId;
     }
 }
