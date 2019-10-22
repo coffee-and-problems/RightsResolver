@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 
-<rulesDeclaration>
-  <rule>
-    <user>
+<RulesDeclaration>
+  <Rule>
+    <User>
       <Position>
         <Department>1</Department>
         <Post>post1</Post>
       </Position>
-    </user>
+    </User>
     <Access>
       <Platform>Oorv</Platform>
       <Role>admin</Role>
@@ -20,15 +20,15 @@
         <Role>RoleII</Role>
       </ProductRole>
     </Access>
-  </rule>
+  </Rule>
 
-  <rule>
-    <user>
+  <Rule>
+    <User>
       <Position>
         <Department>2</Department>
         <Post>post1</Post>
       </Position>
-    </user>
+    </User>
     <Access>
       <Platform>Oorv</Platform>
     </Access>
@@ -40,15 +40,15 @@
         <Role>RoleI</Role>
       </ProductRole>
     </Access>
-  </rule>
+  </Rule>
 
-  <rule>
-    <user>
+  <Rule>
+    <User>
       <Position>
         <Department>3</Department>
         <Post>superpost</Post>
       </Position>
-    </user>
+    </User>
     
     <Access>
       <Platform>Support</Platform>
@@ -69,15 +69,15 @@
         <Role>RoleII</Role>
       </ProductRole>
     </Access>
-  </rule>
+  </Rule>
 
-  <rule>
-    <user>
+  <Rule>
+    <User>
       <Position>
         <Department>3</Department>
         <Post>post2</Post>
       </Position>
-    </user>
+    </User>
     
     <Access>
       <Platform>Support</Platform>
@@ -86,16 +86,15 @@
         <Role>RoleI</Role>
       </ProductRole>
     </Access>
-  </rule>
+  </Rule>
 
-  <rule>
-    <user>
+  <Rule>
+    <User>
       <Position>
         <Department>4</Department>
-        <Department>group1</Department>
         <Post>post1</Post>
       </Position>
-    </user>
+    </User>
     
     <Access>
       <Platform>Support</Platform>
@@ -104,15 +103,15 @@
         <Role>RoleI</Role>
       </ProductRole>
     </Access>
-  </rule>
+  </Rule>
 
-  <rule>
-    <user>
+  <Rule>
+    <User>
       <Position>
         <Department>5</Department>
         <Post>post1</Post>
       </Position>
-    </user>
+    </User>
     
     <Access>
       <Platform>Support</Platform>
@@ -128,5 +127,5 @@
         <Role>RoleI</Role>
       </ProductRole>
     </Access>
-  </rule>
-</rulesDeclaration>
+  </Rule>
+</RulesDeclaration>

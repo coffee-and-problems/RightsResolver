@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class Rule
+    public class Rule
     {
         public int Department { get; }
         public string Post { get; }
         public List<IAccess> Access { get; }
+
+        public Rule(int department, string post, List<IAccess> accesses)
+        {
+            Department = department;
+            Post = post;
+            Access = accesses;
+        }
     }
 }

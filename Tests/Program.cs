@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RightsResolver
+namespace Tests
 {
-    interface IAccess
+    class Program
     {
-        string Platform { get; }
+        static void Main(string[] args)
+        {
+        }
     }
 }

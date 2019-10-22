@@ -2,14 +2,14 @@
 <xs:schema id="RulesSchema"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
-  <xs:element name="rulesDeclaration">
+  <xs:element name="RulesDeclaration">
     <xs:complexType>
       <xs:sequence>
 
-        <xs:element name ="rule" maxOccurs="unbounded">
+        <xs:element name ="Rule" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="user" type="User"/>
+              <xs:element name="User" type="User"/>
               <xs:element name="Access" type="Access" maxOccurs="unbounded"/>
             </xs:sequence>
           </xs:complexType>
@@ -21,7 +21,7 @@
 
   <xs:complexType name="User">
     <xs:sequence>
-      <xs:element name="Position" maxOccurs="unbounded">
+      <xs:element name="Position" maxOccurs="1">
         <xs:complexType>
           <xs:sequence>
             <xs:element name ="Department" type="xs:int" maxOccurs="unbounded"></xs:element>
