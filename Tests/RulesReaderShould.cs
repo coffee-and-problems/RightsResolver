@@ -15,7 +15,7 @@ namespace Tests
         {
             reader = new RulesReader();
             var currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            filePath = Path.Combine(currentDirectory, "..", "..", "Rules", "Rules.xml");
+            filePath = Path.Combine(currentDirectory, "Rules", "Rules.xml");
         }
 
         [Test]

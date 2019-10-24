@@ -3,10 +3,8 @@
 <RulesDeclaration>
   <Rule>
     <User>
-      <Position>
         <Department>1</Department>
         <Post>post1</Post>
-      </Position>
     </User>
     <Access>
       <Platform>Oorv</Platform>
@@ -24,10 +22,8 @@
 
   <Rule>
     <User>
-      <Position>
         <Department>2</Department>
         <Post>post1</Post>
-      </Position>
     </User>
     <Access>
       <Platform>Oorv</Platform>
@@ -44,10 +40,8 @@
 
   <Rule>
     <User>
-      <Position>
         <Department>3</Department>
         <Post>superpost</Post>
-      </Position>
     </User>
     
     <Access>
@@ -73,10 +67,8 @@
 
   <Rule>
     <User>
-      <Position>
         <Department>3</Department>
         <Post>post2</Post>
-      </Position>
     </User>
     
     <Access>
@@ -90,10 +82,8 @@
 
   <Rule>
     <User>
-      <Position>
         <Department>4</Department>
         <Post>post1</Post>
-      </Position>
     </User>
     
     <Access>
@@ -107,10 +97,8 @@
 
   <Rule>
     <User>
-      <Position>
         <Department>5</Department>
         <Post>post1</Post>
-      </Position>
     </User>
     
     <Access>
