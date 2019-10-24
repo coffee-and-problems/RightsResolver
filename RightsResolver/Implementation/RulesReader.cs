@@ -18,7 +18,7 @@ namespace RightsResolver
 
         public XmlDocument LoadXmlFromFile(string fileName)
         {
-            var rulesDocument = new XmlDocument();
+            rulesDocument = new XmlDocument();
             rulesDocument.Load(fileName);
             return rulesDocument;
         }

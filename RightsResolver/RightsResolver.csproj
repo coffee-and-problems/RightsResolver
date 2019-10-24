@@ -59,7 +59,7 @@
     <Compile Include="Implementation\RulesReader.cs" />
     <Compile Include="Models\UserRights.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\UserDBO.cs" />
+    <Compile Include="UserDBO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
