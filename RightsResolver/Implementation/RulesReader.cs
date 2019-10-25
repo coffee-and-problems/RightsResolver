@@ -9,18 +9,16 @@ namespace RightsResolver
 {
     public class RulesReader
     {
-        private XmlDocument rulesDocument;
-        private string rulesPath;
+        private readonly XmlDocument rulesDocument;
 
         public RulesReader(string rulesPath)
         {
-            this.rulesPath = rulesPath;
+            rulesDocument = new XmlDocument();
             rulesDocument = LoadXmlFromFile(rulesPath);
         }
 
         public XmlDocument LoadXmlFromFile(string fileName)
         {
-            rulesDocument = new XmlDocument();
             rulesDocument.Load(fileName);
             return rulesDocument;
         }
@@ -31,8 +29,8 @@ namespace RightsResolver
 
             foreach (XmlNode rule in rulesDocument.DocumentElement)
             {
-                var productAccesses = new List<ProductAccess>();
-                var platformAccesses = new List<PlatformAccess>();
+                var productAccesses = new List<ProductAccessDTO>();
+                var platformAccesses = new List<PlatformAccessDTO>();
                 var department = "";
                 var post = "";
 
@@ -57,17 +55,17 @@ namespace RightsResolver
             return rules;
         }
 
-        private (PlatformAccess, ProductAccess) ReadAccess(XmlNode access)
+        private (PlatformAccessDTO, ProductAccessDTO) ReadAccess(XmlNode access)
         {
-            PlatformAccess platformAccess = null;
-            ProductAccess productAccess = null;
+            PlatformAccessDTO platformAccess = null;
+            ProductAccessDTO productAccess = null;
 
             var productRoles = new List<ProductRole>();
             foreach (XmlNode node in access.ChildNodes)
             {
                 if (node.Name == "Role")
                 {
-                    platformAccess = new PlatformAccess(
+                    platformAccess = new PlatformAccessDTO(
                         access.SafeGet("Platform"),
                         (Role) Enum.Parse(typeof(Role), access.SafeGet("Role"), true));
                 }
@@ -81,7 +79,7 @@ namespace RightsResolver
             }
 
             if (productRoles.Count > 0) 
-                productAccess = new ProductAccess(access.SafeGet("Platform"), productRoles);
+                productAccess = new ProductAccessDTO(access.SafeGet("Platform"), productRoles);
 
             return (platformAccess, productAccess);
         }

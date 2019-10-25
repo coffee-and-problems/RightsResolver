@@ -10,12 +10,11 @@ namespace RightsResolver
     {
         public int Department { get; }
         public string Post { get; }
-        public List<ProductAccess> ProductAccesses { get; }
-        public List<PlatformAccess> PlatformAccesses { get; }
+        public List<ProductAccessDTO> ProductAccesses { get; }
+        public List<PlatformAccessDTO> PlatformAccesses { get; }
 
-
-        public Rule(int department, string post, List<ProductAccess> productAccesses,
-                List<PlatformAccess> platformAccesses)
+        public Rule(int department, string post, List<ProductAccessDTO> productAccesses,
+                List<PlatformAccessDTO> platformAccesses)
         {
             Department = department;
             Post = post;

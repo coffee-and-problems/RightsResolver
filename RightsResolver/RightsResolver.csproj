@@ -47,14 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAccess.cs" />
     <Compile Include="IResolver.cs" />
+    <Compile Include="Models\AccessDTO.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Platform.cs" />
-    <Compile Include="Models\ProductAccess.cs" />
+    <Compile Include="Models\ProductRole.cs" />
     <Compile Include="Implementation\Resolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\PlatformAccess.cs" />
     <Compile Include="Models\Rule.cs" />
     <Compile Include="Implementation\RulesReader.cs" />
     <Compile Include="Models\UserRights.cs" />
