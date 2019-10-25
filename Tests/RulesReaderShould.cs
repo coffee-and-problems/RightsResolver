@@ -13,9 +13,9 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            reader = new RulesReader();
             var currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            filePath = Path.Combine(currentDirectory, "Rules", "Rules.xml");
+            filePath = Path.Combine(currentDirectory, "TestRules.xml");
+            reader = new RulesReader(filePath);
         }
 
         [Test]
@@ -27,7 +27,12 @@ namespace Tests
         [Test]
         public void ReaderReadRules()
         {
-            Assert.IsNotEmpty((IEnumerable) reader.GetRulesDeclaration(filePath));
+            var rules = reader.ReadRules();
+            Assert.IsNotEmpty(rules);
+            Assert.AreEqual(0, rules[0].Department);
+            Assert.AreEqual("post0", rules[0].Post);
+            Assert.AreEqual(1,rules[0].PlatformAccesses.Count);
+            Assert.AreEqual(1,rules[0].ProductAccesses.Count);
         }
     }
 }

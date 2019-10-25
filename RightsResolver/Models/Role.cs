@@ -1,6 +1,6 @@
 ﻿namespace RightsResolver
 {
-    enum Role
+    public enum Role
     {
         RoleI,
         RoleII,

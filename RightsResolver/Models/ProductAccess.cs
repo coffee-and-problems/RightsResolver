@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class ProductAccess : IAccess
+    public class ProductAccess : IAccess
     {
         public string Platform { get; }
         public List<ProductRole> Products { get; }
@@ -18,7 +18,7 @@ namespace RightsResolver
         }
     }
 
-    class ProductRole
+    public class ProductRole
     {
         public string ProductId { get; }
         public Role Role { get; }
