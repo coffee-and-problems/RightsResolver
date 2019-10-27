@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="IResolver.cs" />
     <Compile Include="Models\AccessDTO.cs" />
-    <Compile Include="Models\Position.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Models\Platform.cs" />
     <Compile Include="Models\ProductRole.cs" />
     <Compile Include="Implementation\Resolver.cs" />

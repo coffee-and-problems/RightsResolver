@@ -1,4 +1,4 @@
-﻿namespace RightsResolverUser
+﻿namespace Actualizer
 {
     public static class ProductList
     {

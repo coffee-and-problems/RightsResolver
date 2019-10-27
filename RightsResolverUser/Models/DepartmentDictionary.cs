@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RightsResolverUser
+namespace Actualizer
 {
     class DepartmentDictionary
     {
