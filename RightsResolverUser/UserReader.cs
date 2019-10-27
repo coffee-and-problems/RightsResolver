@@ -32,17 +32,16 @@ namespace Actualizer
         private User ReadUser(string line)
         {
             var idPositions = line.Split(':');
-            var length = idPositions.Length;
-            if (length < 2) throw new ArgumentException("Wrong user format");
+            if (idPositions.Length < 2) throw new ArgumentException("Wrong user format");
 
             var positions = new List<Position>();
-            for (var i = 1; i < length; i++)
+            for (var i = 1; i < idPositions.Length; i++)
             {
                 var positionStrings = idPositions[i].Split(',');
-                var departments = positionStrings.Take(length - 1)
+                var departments = positionStrings.Take(positionStrings.Length - 1)
                                 .Select(int.Parse)
                                 .ToArray();
-                positions.Add(new Position(departments,idPositions[length-1]));
+                positions.Add(new Position(departments, positionStrings[positionStrings.Length-1]));
             }
 
             return new User(Guid.Parse(idPositions[0]), positions);
