@@ -10,11 +10,11 @@ namespace RightsResolver
     {
         public int Department { get; }
         public string Post { get; }
-        public List<ProductAccessDTO> ProductAccesses { get; }
-        public List<PlatformAccessDTO> PlatformAccesses { get; }
+        public Dictionary<Platform, Role> PlatformAccesses { get; }
+        public Dictionary<Platform, List<ProductRole>> ProductAccesses { get; }
 
-        public Rule(int department, string post, List<ProductAccessDTO> productAccesses,
-                List<PlatformAccessDTO> platformAccesses)
+        public Rule(int department, string post, Dictionary<Platform, List<ProductRole>> productAccesses,
+            Dictionary<Platform, Role> platformAccesses)
         {
             Department = department;
             Post = post;

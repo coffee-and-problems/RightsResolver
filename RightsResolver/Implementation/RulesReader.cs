@@ -29,23 +29,24 @@ namespace RightsResolver
 
             foreach (XmlNode rule in rulesDocument.DocumentElement)
             {
-                var productAccesses = new List<ProductAccessDTO>();
-                var platformAccesses = new List<PlatformAccessDTO>();
+                var productAccesses = new Dictionary<Platform, List<ProductRole>>();
+                var platformAccesses = new Dictionary<Platform, Role>();
                 var department = "";
                 var post = "";
 
-                foreach (XmlNode userAndAccess in rule.ChildNodes)
+                foreach (XmlNode node in rule.ChildNodes)
                 {
-                    if (userAndAccess.Name == "Access")
+                    if (node.Name == "Access")
                     {
-                        var (platformAccess, productAccess) = ReadAccess(userAndAccess);
-                        if (platformAccess != null) platformAccesses.Add(platformAccess);
-                        if (productAccess != null) productAccesses.Add(productAccess);
+                        var (role, productAccess) = ReadAccess(node);
+                        var platform = (Platform) Enum.Parse(typeof(Platform), node.SafeGet("Platform"), true);
+                        if (role != null) platformAccesses.Add(platform, role.Value);
+                        if (productAccess != null) productAccesses.Add(platform, productAccess);
                     }
-                    else if (userAndAccess.Name == "User")
+                    else if (node.Name == "User")
                     {
-                        department = userAndAccess.SafeGet("Department");
-                        post = userAndAccess.SafeGet("Post");
+                        department = node.SafeGet("Department");
+                        post = node.SafeGet("Post");
                     }
                 }
 
@@ -55,33 +56,28 @@ namespace RightsResolver
             return rules;
         }
 
-        private (PlatformAccessDTO, ProductAccessDTO) ReadAccess(XmlNode access)
+        private (Role?, List<ProductRole>) ReadAccess(XmlNode access)
         {
-            PlatformAccessDTO platformAccess = null;
-            ProductAccessDTO productAccess = null;
+            Role? platformAccess = null;
+            var productAccess = new List<ProductRole>();
 
-            var productRoles = new List<ProductRole>();
             foreach (XmlNode node in access.ChildNodes)
             {
                 if (node.Name == "Role")
                 {
-                    platformAccess = new PlatformAccessDTO(
-                        access.SafeGet("Platform"),
-                        (Role) Enum.Parse(typeof(Role), access.SafeGet("Role"), true));
+                    platformAccess = 
+                        (Role) Enum.Parse(typeof(Role), access.SafeGet("Role"), true);
                 }
 
                 if (node.Name == "ProductRole")
                 {
-                    productRoles.Add(new ProductRole(
+                    productAccess.Add(new ProductRole(
                         node.SafeGet("Product"),
                         (Role) Enum.Parse(typeof(Role), node.SafeGet("Role"), true)));
                 }
             }
 
-            if (productRoles.Count > 0) 
-                productAccess = new ProductAccessDTO(access.SafeGet("Platform"), productRoles);
-
-            return (platformAccess, productAccess);
+            return (platformAccess, productAccess.Count == 0? null : productAccess);
         }
     }
 

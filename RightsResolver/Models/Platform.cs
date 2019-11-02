@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    enum Platform
+    public enum Platform
     {
         Oorv,
         Health,

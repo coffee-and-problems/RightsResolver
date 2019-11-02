@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class UserDBO
+    class UserDto
     {
         public Guid UserId { get; }
         public List<Position> UserPositions { get; }

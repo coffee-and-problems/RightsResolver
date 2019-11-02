@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IResolver.cs" />
-    <Compile Include="Models\AccessDTO.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Models\Platform.cs" />
     <Compile Include="Models\ProductRole.cs" />
@@ -58,7 +57,7 @@
     <Compile Include="Implementation\RulesReader.cs" />
     <Compile Include="Models\UserRights.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="UserDBO.cs" />
+    <Compile Include="UserDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
