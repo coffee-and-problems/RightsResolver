@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\RulesValidator.cs" />
     <Compile Include="IResolver.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Models\Platform.cs" />

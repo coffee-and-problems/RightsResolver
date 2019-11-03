@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.IO;
+﻿using System.IO;
 using NUnit.Framework;
 using RightsResolver;
 
@@ -14,7 +13,7 @@ namespace Tests
         public void SetUp()
         {
             var currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            filePath = Path.Combine(currentDirectory, "TestRules.xml");
+            filePath = Path.Combine(currentDirectory, "Rules", "TestRules.xml");
             reader = new RulesReader(filePath);
         }
 
