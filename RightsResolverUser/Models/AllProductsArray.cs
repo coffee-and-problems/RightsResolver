@@ -1,6 +1,6 @@
 ﻿namespace Actualizer
 {
-    public static class ProductList
+    public static class AllProductsArray
     {
         public static string[] Products =
             {

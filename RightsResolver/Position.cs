@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RightsResolver
 {
     
-    class Position
+    public class Position
     {
         public int[] Departments { get; }
         public string Post { get; }

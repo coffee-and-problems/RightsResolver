@@ -9,7 +9,7 @@ namespace RightsResolver
     class UserRights
     {
         public int UserId { get; }
-        public Dictionary<Platform, Role> PlatformAccess {get;}
+        public Dictionary<Platform, Role> PlatformAccesses {get;}
         public Dictionary<Platform, List<ProductRole>> ProductAccess { get; }
     }
 }
