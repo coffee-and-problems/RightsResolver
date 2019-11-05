@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    class UserRights
+    public class UserRights
     {
-        public int UserId { get; }
+        public Guid UserId { get; }
         public Dictionary<Platform, Role> PlatformAccesses {get;}
         public Dictionary<Platform, List<ProductRole>> ProductAccess { get; }
+
+        public UserRights(Guid userId, Dictionary<Platform, Role> platformAccesses,
+            Dictionary<Platform, List<ProductRole>> productAccess)
+        {
+            UserId = userId;
+            PlatformAccesses = platformAccesses;
+            ProductAccess = productAccess;
+        }
     }
 }

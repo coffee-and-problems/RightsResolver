@@ -4,9 +4,16 @@ namespace RightsResolver
 {
     public class Merger
     {
-        public List<Rule> MergeRules(List<Rule> allRules)
+        private List<Rule> allRules;
+
+        public Merger(List<Rule> allRules)
         {
-            return allRules;
+            this.allRules = allRules;
+        }
+
+        public List<Rule> MergeRules(List<Rule> applicableRules)
+        {
+            return applicableRules;
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Policy;
 using System.Xml;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace RightsResolver
 {
@@ -17,9 +20,9 @@ namespace RightsResolver
             rulesDocument = LoadXmlFromFile(rulesPath);
         }
 
-        public XmlDocument LoadXmlFromFile(string fileName)
+        public XmlDocument LoadXmlFromFile(string rulesPath)
         {
-            rulesDocument.Load(fileName);
+            rulesDocument.Load(rulesPath);
             return rulesDocument;
         }
 

@@ -4,15 +4,21 @@ using System.Linq;
 
 namespace RightsResolver
 {
-    public class RuleApplier
+    public class RulesApplier
     {
         private string[] allProducts;
 
-        public RuleApplier(string[] allProducts)
+        public RulesApplier(string[] allProducts)
         {
             this.allProducts = allProducts;
         }
 
+        public (Dictionary<Platform, Role> platformAccesses,
+            Dictionary<Platform, List<ProductRole>> productAccess)
+            ApplyRules(List<Rule> rules)
+        {
+
+        }
         private List<ProductRole> GetRolesForAllProducts(List<ProductRole> products)
         {
             var allProductRoles = new Dictionary<string, Role>();

@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="EmumExtention.cs" />
     <Compile Include="Implementation\Merger.cs" />
-    <Compile Include="Implementation\RuleApplier.cs" />
+    <Compile Include="Implementation\RulesApplier.cs" />
     <Compile Include="Implementation\RulesFinder.cs" />
     <Compile Include="Implementation\RulesValidator.cs" />
     <Compile Include="IResolver.cs" />
