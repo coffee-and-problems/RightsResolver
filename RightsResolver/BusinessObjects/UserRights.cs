@@ -9,15 +9,12 @@ namespace RightsResolver
     public class UserRights
     {
         public Guid UserId { get; }
-        public Dictionary<Platform, Role> PlatformAccesses {get;}
-        public Dictionary<Platform, List<ProductRole>> ProductAccess { get; }
+        public Rights Rights { get; }
 
-        public UserRights(Guid userId, Dictionary<Platform, Role> platformAccesses,
-            Dictionary<Platform, List<ProductRole>> productAccess)
+        public UserRights(Guid userId, Rights rights)
         {
             UserId = userId;
-            PlatformAccesses = platformAccesses;
-            ProductAccess = productAccess;
+            Rights = rights;
         }
     }
 }

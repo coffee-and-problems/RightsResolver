@@ -6,47 +6,62 @@ namespace RightsResolver
 {
     public class RulesApplier
     {
-        private string[] allProducts;
+        private readonly string[] allProducts;
 
         public RulesApplier(string[] allProducts)
         {
             this.allProducts = allProducts;
         }
 
-        public (Dictionary<Platform, Role> platformAccesses,
-            Dictionary<Platform, List<ProductRole>> productAccess)
-            ApplyRules(List<Rule> rules)
+        public List<Rights> ApplyRules(List<Rule> rules)
         {
-            var platformAccesses = new Dictionary<Platform, Role>();
-            var productAccess = new Dictionary<Platform, List<ProductRole>>();
-            return (platformAccesses, productAccess);
+            return rules.Select(ApplyRule).ToList();
         }
-        private List<ProductRole> GetRolesForAllProducts(List<ProductRole> products)
+
+        private Rights ApplyRule(Rule rule)
         {
-            var allProductRoles = new Dictionary<string, Role>();
-            var productRoleForAll = products.Where(productRole =>
+            var platformAccesses = rule.PlatformAccesses;
+            var productAccesses = GetProductAccesses(rule.ProductAccesses);
+
+            return new Rights(platformAccesses, productAccesses);
+        }
+
+        private Dictionary<Platform, List<ProductRole>> GetProductAccesses
+            (Dictionary<Platform, List<ProductRole>> ruleAccesses)
+        {
+            var productAccesses = new Dictionary<Platform, List<ProductRole>>();
+
+            foreach (var platform in ruleAccesses.Keys)
+            {
+                 productAccesses.Add(platform, GetUserProductRoles(ruleAccesses[platform]));
+            }
+
+            return productAccesses;
+        }
+
+        private List<ProductRole> GiveAccessToAllProductsWithRole(Role role)
+        {
+            return allProducts.Select(product => new ProductRole(product, role)).ToList();
+        }
+
+        private List<ProductRole> GetUserProductRoles(List<ProductRole> products)
+        {
+            var forAllProducts = products.Where(productRole =>
                     string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
-                .ToArray();
+                .ToArray()
+                .FirstOrDefault();
 
-            var unpackProducts = productRoleForAll.Length > 0;
-            if (unpackProducts)
+            var userProductRoles = new List<ProductRole>();
+            if (forAllProducts != null)
             {
-                foreach (var product in allProducts)
-                {
-                    allProductRoles.Add(product, productRoleForAll[0].Role);
-                }
+                userProductRoles = GiveAccessToAllProductsWithRole(forAllProducts.Role);
             }
 
-            foreach (var productRole in products)
-            {
-                if (allProductRoles.ContainsKey(productRole.ProductId))
-                    allProductRoles[productRole.ProductId] = EnumExtention.Max(
-                        allProductRoles[productRole.ProductId], productRole.Role);
-            }
+            userProductRoles.AddRange(products.Where(productRole =>
+                !string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
+                .ToList());
 
-            return allProductRoles.Select(
-                    productRole => new ProductRole(productRole.Key, productRole.Value))
-                .ToList();
+            return userProductRoles;
         }
     }
 }
