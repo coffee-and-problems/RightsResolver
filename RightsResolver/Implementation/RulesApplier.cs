@@ -17,7 +17,9 @@ namespace RightsResolver
             Dictionary<Platform, List<ProductRole>> productAccess)
             ApplyRules(List<Rule> rules)
         {
-
+            var platformAccesses = new Dictionary<Platform, Role>();
+            var productAccess = new Dictionary<Platform, List<ProductRole>>();
+            return (platformAccesses, productAccess);
         }
         private List<ProductRole> GetRolesForAllProducts(List<ProductRole> products)
         {

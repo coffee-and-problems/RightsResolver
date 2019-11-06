@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace RightsResolver
 {
-    public class User
+    public class Position
     {
-        public Guid UserId { get; }
-        public List<Position> UserPositions { get; }
+        public int[] Departments { get; }
+        public string Post { get; }
     }
-
 }

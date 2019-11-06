@@ -18,7 +18,7 @@ namespace RightsResolver
             this.products = products;
         }
 
-        public UserRights GetUserRights(User user)
+        public UserRights GetUserRights(RightsResolver.User user)
         {
             var allRules = new RulesReader(rulesPath).ReadRules();
             var applicableRules = new RulesFinder(allRules).GetApplicableRules(user);
