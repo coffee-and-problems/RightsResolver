@@ -31,7 +31,7 @@ namespace Actualizer
 
         private User ReadUser(string line)
         {
-            var idPositions = line.Split(':');
+            var idPositions = line.Split(';');
             if (idPositions.Length < 2) throw new ArgumentException("Wrong user format");
 
             var positions = new List<Position>();
