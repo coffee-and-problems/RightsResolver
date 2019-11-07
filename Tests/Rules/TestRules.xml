@@ -13,10 +13,19 @@
     </Access>
     
     <Access>
+      <Platform>Manager</Platform>
+      <Role>RoleII</Role>
+    </Access>
+
+    <Access>
       <Platform>Support</Platform>
       <ProductRole>
         <Product>All</Product>
         <Role>RoleI</Role>
+      </ProductRole>
+      <ProductRole>
+        <Product>Product1</Product>
+        <Role>Admin</Role>
       </ProductRole>
     </Access>
   </Rule>

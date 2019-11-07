@@ -17,5 +17,14 @@ namespace RightsResolver
             this.rulesPath = rulesPath;
             this.products = products;
         }
+
+        public UserRights GetUserRights(RightsResolver.User user)
+        {
+            var allRules = new RulesReader(rulesPath).ReadRules();
+            var applicableRules = new RulesFinder(allRules).GetApplicableRules(user);
+            var allPossibleRights = new RulesApplier(products).ApplyRules(applicableRules);
+            var actualRight = new Merger().MergeRights(allPossibleRights);
+            return new UserRights(user.UserId, actualRight);
+        }
     }
 }

@@ -18,20 +18,22 @@ namespace Tests
         }
 
         [Test]
-        public void ReaderReadFile()
+        public void NoThrow_IfFileOk()
         {
             Assert.DoesNotThrow(() => reader.LoadXmlFromFile(filePath));
         }
 
         [Test]
-        public void ReaderReadRules()
+        public void ReadRulesCorrectly()
         {
             var rules = reader.ReadRules();
             Assert.IsNotEmpty(rules);
-            Assert.AreEqual(0, rules[0].Department);
-            Assert.AreEqual("post0", rules[0].Post);
-            Assert.AreEqual(1,rules[0].PlatformAccesses.Count);
-            Assert.AreEqual(1,rules[0].ProductAccesses.Count);
+            var rule = rules[0];
+            Assert.AreEqual(0, rule.Department);
+            Assert.AreEqual("post0", rule.Post);
+            Assert.AreEqual(2,rule.PlatformAccesses.Count);
+            Assert.AreEqual(1,rule.ProductAccesses.Count);
+            Assert.AreEqual(2, rule.ProductAccesses[Platform.Support].Count);
         }
     }
 }
