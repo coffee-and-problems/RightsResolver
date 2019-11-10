@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
 using System.Xml;
-using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace RightsResolver
 {
     public class RulesReader
     {
         private readonly XmlDocument rulesDocument;
+        private readonly string rulesPath;
 
         public RulesReader(string rulesPath)
         {
+            this.rulesPath = rulesPath;
             rulesDocument = new XmlDocument();
             rulesDocument = LoadXmlFromFile(rulesPath);
         }
 
-        public XmlDocument LoadXmlFromFile(string rulesPath)
+        private XmlDocument LoadXmlFromFile(string rulesPath)
         {
             rulesDocument.Load(rulesPath);
             return rulesDocument;
@@ -56,7 +52,8 @@ namespace RightsResolver
                 rules.Add(new Rule(int.Parse(department), post, productAccesses, platformAccesses));
             }
 
-            return rules;
+            if (new Validator().IsValid(rules)) return rules;
+            throw new ArgumentException($"Invalid rules file {rulesPath}");
         }
 
         private (Role?, List<ProductRole>) ReadAccess(XmlNode access)

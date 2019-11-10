@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RightsResolver
@@ -10,72 +11,28 @@ namespace RightsResolver
             var platformAccesses = allRights.Select(right => right.PlatformAccesses).ToList();
             var productAccesses = allRights.Select(right => right.ProductAccesses).ToList();
 
-            return new Rights(MergePlatformAccesses(platformAccesses),
-                MergeProductAccesses(productAccesses));
+            return new Rights(MergeDictionary(platformAccesses, EnumExtention.Max),
+                MergeDictionary(productAccesses, 
+                    (roles1, roles2) => MergeDictionary(
+                        new List<Dictionary<string, Role>>() {roles1, roles2}, EnumExtention.Max)));
         }
 
-        private Dictionary<Platform, Role> MergePlatformAccesses(
-            List<Dictionary<Platform, Role>> platformAccesses)
+        private Dictionary<TKey, TValue> MergeDictionary<TKey, TValue>(
+            List<Dictionary<TKey, TValue>> list, Func<TValue, TValue, TValue> mergeRule)
         {
-            var mergePlatformAccesses = new Dictionary<Platform, Role>();
+            var merged = new Dictionary<TKey, TValue>();
 
-            foreach (var access in platformAccesses)
+            foreach (var dictionary in list)
             {
-                foreach (var platform in access.Keys)
+                foreach (var keyValue in dictionary)
                 {
-                    if (!mergePlatformAccesses.ContainsKey(platform))
-                        mergePlatformAccesses.Add(platform, access[platform]);
-                    else
-                    {
-                        mergePlatformAccesses[platform] =
-                            EnumExtention.Max(mergePlatformAccesses[platform], access[platform]);
-                    }
+                    if (!merged.ContainsKey(keyValue.Key))
+                        merged.Add(keyValue.Key, keyValue.Value);
+                    else merged[keyValue.Key] = mergeRule(merged[keyValue.Key], keyValue.Value);
                 }
             }
 
-            return mergePlatformAccesses;
-        }
-
-        private Dictionary<Platform, List<ProductRole>> MergeProductAccesses(
-            List<Dictionary<Platform, List<ProductRole>>> productAccesses)
-        {
-            var mergeProductAccesses = new Dictionary<Platform, List<ProductRole>>();
-
-            foreach (var access in productAccesses)
-            {
-                foreach (var platform in access.Keys)
-                {
-                    if (!mergeProductAccesses.ContainsKey(platform))
-                        mergeProductAccesses.Add(platform, access[platform]);
-                    else
-                    {
-                        mergeProductAccesses[platform].AddRange(access[platform]);
-                    }
-
-                    mergeProductAccesses[platform] = MergeProductRoles(mergeProductAccesses[platform]);
-                }
-            }
-
-            return mergeProductAccesses;
-        }
-
-        private List<ProductRole> MergeProductRoles(List<ProductRole> roles)
-        {
-            var productRoles = new Dictionary<string, Role>();
-
-            foreach (var productRole in roles)
-            {
-                var product = productRole.ProductId;
-                if (!productRoles.ContainsKey(product))
-                    productRoles.Add(product, productRole.Role);
-                else
-                {
-                    productRoles[product] =
-                        EnumExtention.Max(productRoles[product], productRole.Role);
-                }
-            }
-
-            return productRoles.Select(x => new ProductRole(x.Key, x.Value)).ToList();
+            return merged;
         }
     }
 }

@@ -10,5 +10,11 @@ namespace RightsResolver
     {
         public int[] Departments { get; }
         public string Post { get; }
+
+        public Position(int[] departments, string post)
+        {
+            Departments = departments;
+            Post = post;
+        }
     }
 }

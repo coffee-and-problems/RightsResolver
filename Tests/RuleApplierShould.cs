@@ -47,7 +47,7 @@ namespace Tests
             Assert.AreEqual(1, rights[0].ProductAccesses.Count);
 
             var productList = rights[0].ProductAccesses[Platform.Support];
-            Assert.AreEqual(6,productList.Count);
+            Assert.AreEqual(5,productList.Count);
         }
 
         [Test] public void ConcatRights_OnMultipleRules()
@@ -68,7 +68,7 @@ namespace Tests
             Assert.AreEqual(2,productList.Count);
 
             productList = rights[1].ProductAccesses[Platform.Support];
-            Assert.AreEqual(6,productList.Count);
+            Assert.AreEqual(5,productList.Count);
         }
     }
 }

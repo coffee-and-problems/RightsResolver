@@ -8,32 +8,30 @@ namespace Tests
     [TestFixture]
     public class ValidatorShould
     {
-        private RulesValidator validator;
-        private List<Rule> validRules;
-        private List<Rule> invalidRules;
+        private Validator validator;
+        string validRulesPath;
+        string invalidRulesPath;
 
         [SetUp]
         public void SetUp()
         {
-            validator = new RulesValidator();
-
+            validator = new Validator();
             var currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            var validRulesPath = Path.Combine(currentDirectory, "Rules", "TestRules.xml");
-            var invalidRulesPath = Path.Combine(currentDirectory, "Rules", "InvalidTestRules.xml");
-
-            validRules = new RulesReader(validRulesPath).ReadRules();
-            invalidRules = new RulesReader(invalidRulesPath).ReadRules();
+            validRulesPath = Path.Combine(currentDirectory, "Rules", "TestRules.xml");
+            invalidRulesPath = Path.Combine(currentDirectory, "Rules", "InvalidTestRules.xml");
         }
 
         [Test]
         public void Validator_ReturnTrue_OnValidRules()
         {
+            var validRules = new RulesReader(validRulesPath).ReadRules();
             Assert.IsTrue(validator.IsValid(validRules));
         }
 
         [Test]
         public void Validator_ReturnFalse_OnInvalidRules()
         {
+            var invalidRules = new RulesReader(invalidRulesPath).ReadRules();
             Assert.IsFalse(validator.IsValid(invalidRules));
         }
     }

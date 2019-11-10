@@ -8,8 +8,8 @@
     </User>
 
     <Access>
-      <Platform>Manager</Platform>
-      <Role>RoleII</Role>
+      <Platform>Oorv</Platform>
+      <Role>Admin</Role>
     </Access>
     
     <Access>

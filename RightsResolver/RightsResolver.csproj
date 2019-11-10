@@ -47,13 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DictionaryExtension.cs" />
     <Compile Include="BusinessObjects\User.cs" />
     <Compile Include="EmumExtention.cs" />
     <Compile Include="Implementation\Merger.cs" />
     <Compile Include="Implementation\Rights.cs" />
     <Compile Include="Implementation\RulesApplier.cs" />
     <Compile Include="Implementation\RulesFinder.cs" />
-    <Compile Include="Implementation\RulesValidator.cs" />
+    <Compile Include="Implementation\Validator.cs" />
     <Compile Include="IResolver.cs" />
     <Compile Include="BusinessObjects\Position.cs" />
     <Compile Include="Models\Platform.cs" />

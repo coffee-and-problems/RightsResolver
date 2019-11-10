@@ -9,9 +9,9 @@
 
     <Access>
       <Platform>Oorv</Platform>
-      <Role>RoleI</Role>
+      <Role>Admin</Role>
     </Access>
-    
+
     <Access>
       <Platform>Manager</Platform>
       <Role>RoleII</Role>

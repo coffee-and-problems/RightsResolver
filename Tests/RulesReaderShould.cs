@@ -18,12 +18,6 @@ namespace Tests
         }
 
         [Test]
-        public void NoThrow_IfFileOk()
-        {
-            Assert.DoesNotThrow(() => reader.LoadXmlFromFile(filePath));
-        }
-
-        [Test]
         public void ReadRulesCorrectly()
         {
             var rules = reader.ReadRules();

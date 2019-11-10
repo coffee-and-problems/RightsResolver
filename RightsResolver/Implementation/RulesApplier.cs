@@ -26,10 +26,10 @@ namespace RightsResolver
             return new Rights(platformAccesses, productAccesses);
         }
 
-        private Dictionary<Platform, List<ProductRole>> GetProductAccesses
+        private Dictionary<Platform, Dictionary<string, Role>> GetProductAccesses
             (Dictionary<Platform, List<ProductRole>> ruleAccesses)
         {
-            var productAccesses = new Dictionary<Platform, List<ProductRole>>();
+            var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
 
             foreach (var platform in ruleAccesses.Keys)
             {
@@ -39,27 +39,30 @@ namespace RightsResolver
             return productAccesses;
         }
 
-        private List<ProductRole> GiveAccessToAllProductsWithRole(Role role)
+        private Dictionary<string, Role> GiveAccessToAllProductsWithRole(Role role)
         {
-            return allProducts.Select(product => new ProductRole(product, role)).ToList();
+            return allProducts.ToDictionary(product => product, r => role);
         }
 
-        private List<ProductRole> GetUserProductRoles(List<ProductRole> products)
+        private Dictionary<string, Role> GetUserProductRoles(List<ProductRole> productRoles)
         {
-            var forAllProducts = products.Where(productRole =>
+            var forAllProducts = productRoles.Where(productRole =>
                     string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
                 .ToArray()
                 .FirstOrDefault();
 
-            var userProductRoles = new List<ProductRole>();
+            var userProductRoles = new Dictionary<string, Role>();
             if (forAllProducts != null)
             {
                 userProductRoles = GiveAccessToAllProductsWithRole(forAllProducts.Role);
             }
 
-            userProductRoles.AddRange(products.Where(productRole =>
-                !string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
-                .ToList());
+            foreach (var productRole in 
+                productRoles.Where(productRole => 
+                    !string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase)))
+            {
+                userProductRoles.AddOrUpdate(productRole.ProductId, productRole.Role);
+            }
 
             return userProductRoles;
         }

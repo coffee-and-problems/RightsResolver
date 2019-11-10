@@ -3,14 +3,9 @@ using System.Linq;
 
 namespace RightsResolver
 {
-    public class RulesValidator
+    public class Validator
     {
-        private Platform[] platformAccessOnly =
-        {
-            Platform.Health,
-            Platform.Manager,
-            Platform.Oorv
-        };
+        private Platform[] productAccessOnly = { Platform.Support };
 
         public bool IsValid(List<Rule> rules)
         {
@@ -18,11 +13,11 @@ namespace RightsResolver
             {
                 foreach (var platform in rule.ProductAccesses.Keys)
                 {
-                    if (platformAccessOnly.Contains(platform)) return false;
+                    if (!productAccessOnly.Contains(platform)) return false;
                 }
                 foreach (var platform in rule.PlatformAccesses.Keys)
                 {
-                    if (!platformAccessOnly.Contains(platform)) return false;
+                    if (productAccessOnly.Contains(platform)) return false;
                 }
             }
 

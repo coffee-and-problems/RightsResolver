@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [Test]
-        public void MergeCorrectly()
+        public void Merge_ProductAccesses()
         {
             var rulePath = Path.Combine(rulesDirectory, "TestRules.xml");
             var rules = new RulesReader(rulePath).ReadRules();
@@ -30,6 +30,19 @@ namespace Tests
             var mergedRules = merger.MergeRights(allRights);
 
             Assert.AreEqual(2, mergedRules.PlatformAccesses.Count);
+            Assert.AreEqual(1, mergedRules.ProductAccesses.Count);
+            Assert.AreEqual(5, mergedRules.ProductAccesses[Platform.Support].Count);
+        }
+
+        [Test]
+        public void Merge_ProductAndPlatformAccesses()
+        {
+            var rulePath1 = Path.Combine(rulesDirectory, "MultipleRules.xml");
+            var rules = new RulesReader(rulePath1).ReadRules();
+            var rights = applier.ApplyRules(rules);
+            var mergedRules = new Merger().MergeRights(rights);
+
+            Assert.AreEqual(1, mergedRules.PlatformAccesses.Count);
             Assert.AreEqual(1, mergedRules.ProductAccesses.Count);
             Assert.AreEqual(5, mergedRules.ProductAccesses[Platform.Support].Count);
         }

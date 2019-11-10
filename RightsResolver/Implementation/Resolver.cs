@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RightsResolver
 {
@@ -18,13 +13,23 @@ namespace RightsResolver
             this.products = products;
         }
 
-        public UserRights GetUserRights(RightsResolver.User user)
+        public List<UserRights> GetUserRights(List<User> users)
         {
+            var usersRights = new List<UserRights>();
             var allRules = new RulesReader(rulesPath).ReadRules();
-            var applicableRules = new RulesFinder(allRules).GetApplicableRules(user);
-            var allPossibleRights = new RulesApplier(products).ApplyRules(applicableRules);
-            var actualRight = new Merger().MergeRights(allPossibleRights);
-            return new UserRights(user.UserId, actualRight);
+            var rulesFinder = new RulesFinder(allRules);
+            var applier = new RulesApplier(products);
+            var merger = new Merger();
+
+            foreach (var user in users)
+            {
+                var applicableRules = rulesFinder.GetApplicableRules(user);
+                var allPossibleRights = applier.ApplyRules(applicableRules);
+                var actualRight = merger.MergeRights(allPossibleRights);
+                usersRights.Add(new UserRights(user.UserId, actualRight));
+            }
+
+            return usersRights;
         }
     }
 }
