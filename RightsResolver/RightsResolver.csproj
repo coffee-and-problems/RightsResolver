@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Result.cs" />
     <Compile Include="DictionaryExtension.cs" />
     <Compile Include="BusinessObjects\User.cs" />
     <Compile Include="EmumExtention.cs" />
