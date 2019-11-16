@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class Resolver
     {
-        private string[] products;
-        private string rulesPath;
+        private readonly string[] products;
+        private readonly string rulesPath;
 
         public Resolver(string rulesPath, string[] products)
         {
@@ -13,7 +14,8 @@ namespace RightsResolver
             this.products = products;
         }
 
-        public List<UserRights> GetUserRights(List<User> users)
+        [NotNull]
+        public List<UserRights> GetUserRights([NotNull] List<User> users)
         {
             var usersRights = new List<UserRights>();
             var allRules = new RulesReader(rulesPath).ReadRules();

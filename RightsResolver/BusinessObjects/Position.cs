@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class Position
     {
-        public int[] Departments { get; }
-        public string Post { get; }
+        [NotNull] public int[] Departments { get; }
+        [NotNull] public string Post { get; }
 
         public Position(int[] departments, string post)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
@@ -13,15 +14,16 @@ namespace RightsResolver
         {
             this.rulesPath = rulesPath;
             rulesDocument = new XmlDocument();
-            rulesDocument = LoadXmlFromFile(rulesPath);
+            rulesDocument = LoadXmlFromFile();
         }
 
-        private XmlDocument LoadXmlFromFile(string rulesPath)
+        private XmlDocument LoadXmlFromFile()
         {
             rulesDocument.Load(rulesPath);
             return rulesDocument;
         }
 
+        [NotNull]
         public List<Rule> ReadRules()
         {
             var rules = new List<Rule>();
@@ -38,7 +40,8 @@ namespace RightsResolver
                     if (node.Name == "Access")
                     {
                         var (role, productAccess) = ReadAccess(node);
-                        var platform = (Platform) Enum.Parse(typeof(Platform), node.SafeGet("Platform"), true);
+                        var platform = (Platform) Enum.Parse(typeof(Platform), 
+                            node.SafeGet("Platform"), true);
                         if (role != null) platformAccesses.Add(platform, role.Value);
                         if (productAccess != null) productAccesses.Add(platform, productAccess);
                     }
@@ -83,6 +86,7 @@ namespace RightsResolver
 
     public static class XmlNodeExtension
     {
+        [NotNull]
         public static string SafeGet(this XmlNode node, string element)
         {
             if (node[element] != null) return node[element]?.InnerText;

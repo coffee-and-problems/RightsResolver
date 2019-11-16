@@ -1,23 +1,24 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class Result
     {
         public bool IsSuccessful { get; }
-        public string Message { get; }
-        public List<UserRights> Data { get; }
+        [CanBeNull] public string Message { get; }
+        [CanBeNull] public List<UserRights> UserRights { get; }
 
-        public Result(bool isSuccessful, string message = null, List<UserRights> data = null)
+        public Result(bool isSuccessful, string message = null, List<UserRights> userRights = null)
         {
             IsSuccessful = isSuccessful;
             Message = message;
-            Data = data;
+            UserRights = userRights;
         }
 
         public static Result GenerateSuccess(List<UserRights> data)
         {
-            return new Result(true, data: data);
+            return new Result(true, userRights: data);
         }
 
         public static Result GenerateFail(string message)

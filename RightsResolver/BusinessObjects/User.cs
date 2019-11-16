@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class User
     {
         public Guid UserId { get; }
-        public List<Position> UserPositions { get; }
+        [NotNull] public List<Position> UserPositions { get; }
 
         public User(Guid userId, List<Position> userPositions)
         {

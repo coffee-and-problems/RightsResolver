@@ -1,28 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class Merger
     {
+        [NotNull]
         public Rights MergeRights(List<Rights> allRights)
         {
             var platformAccesses = allRights.Select(right => right.PlatformAccesses).ToList();
             var productAccesses = allRights.Select(right => right.ProductAccesses).ToList();
 
-            return new Rights(MergeDictionary(platformAccesses, EnumExtention.Max),
-                MergeDictionary(productAccesses, 
-                    (roles1, roles2) => MergeDictionary(
+            return new Rights(MergeDictionaries(platformAccesses, EnumExtention.Max),
+                MergeDictionaries(productAccesses, 
+                    (roles1, roles2) => MergeDictionaries(
                         new List<Dictionary<string, Role>>() {roles1, roles2}, EnumExtention.Max)));
         }
 
-        private Dictionary<TKey, TValue> MergeDictionary<TKey, TValue>(
-            List<Dictionary<TKey, TValue>> list, Func<TValue, TValue, TValue> mergeRule)
+        [NotNull]
+        private Dictionary<TKey, TValue> MergeDictionaries<TKey, TValue>(
+            List<Dictionary<TKey, TValue>> dictionaryList, Func<TValue, TValue, TValue> mergeRule)
         {
             var merged = new Dictionary<TKey, TValue>();
 
-            foreach (var dictionary in list)
+            foreach (var dictionary in dictionaryList)
             {
                 foreach (var keyValue in dictionary)
                 {

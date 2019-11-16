@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
@@ -13,12 +14,13 @@ namespace RightsResolver
             this.allProducts = allProducts;
         }
 
-        public List<Rights> ApplyRules(List<Rule> rules)
+        [NotNull]
+        public List<Rights> ApplyRules([NotNull] List<Rule> rules)
         {
             return rules.Select(ApplyRule).ToList();
         }
 
-        private Rights ApplyRule(Rule rule)
+        private Rights ApplyRule([NotNull] Rule rule)
         {
             var platformAccesses = rule.PlatformAccesses;
             var productAccesses = GetProductAccesses(rule.ProductAccesses);
@@ -27,24 +29,19 @@ namespace RightsResolver
         }
 
         private Dictionary<Platform, Dictionary<string, Role>> GetProductAccesses
-            (Dictionary<Platform, List<ProductRole>> ruleAccesses)
+            ([NotNull] Dictionary<Platform, List<ProductRole>> ruleAccesses)
         {
             var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
 
             foreach (var platform in ruleAccesses.Keys)
             {
-                 productAccesses.Add(platform, GetUserProductRoles(ruleAccesses[platform]));
+                 productAccesses.Add(platform, ApplyProductAccessRule(ruleAccesses[platform]));
             }
 
             return productAccesses;
         }
 
-        private Dictionary<string, Role> GiveAccessToAllProductsWithRole(Role role)
-        {
-            return allProducts.ToDictionary(product => product, r => role);
-        }
-
-        private Dictionary<string, Role> GetUserProductRoles(List<ProductRole> productRoles)
+        private Dictionary<string, Role> ApplyProductAccessRule(List<ProductRole> productRoles)
         {
             var forAllProducts = productRoles.Where(productRole =>
                     string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
@@ -54,7 +51,7 @@ namespace RightsResolver
             var userProductRoles = new Dictionary<string, Role>();
             if (forAllProducts != null)
             {
-                userProductRoles = GiveAccessToAllProductsWithRole(forAllProducts.Role);
+                userProductRoles = GiveAccessToAllProducts(forAllProducts.Role);
             }
 
             foreach (var productRole in 
@@ -65,6 +62,11 @@ namespace RightsResolver
             }
 
             return userProductRoles;
+        }
+        
+        private Dictionary<string, Role> GiveAccessToAllProducts(Role role)
+        {
+            return allProducts.ToDictionary(product => product, r => role);
         }
     }
 }

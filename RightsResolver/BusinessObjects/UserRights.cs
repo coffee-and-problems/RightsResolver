@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class UserRights
     {
         public Guid UserId { get; }
-        public Rights Rights { get; }
+        [NotNull] public Rights Rights { get; }
 
-        public UserRights(Guid userId, Rights rights)
+        public UserRights(Guid userId, [NotNull] Rights rights)
         {
             UserId = userId;
             Rights = rights;

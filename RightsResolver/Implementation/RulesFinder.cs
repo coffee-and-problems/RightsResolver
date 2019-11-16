@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace RightsResolver
 {
     public class RulesFinder
     {
-        private List<Rule> allRules;
+        private readonly List<Rule> allRules;
 
         public RulesFinder(List<Rule> allRules)
         {
             this.allRules = allRules;
         }
 
+        [NotNull]
         public List<Rule> GetApplicableRules(User user)
         {
             var applicableRules = new List<Rule>();
@@ -24,6 +26,7 @@ namespace RightsResolver
             return applicableRules;
         }
 
+        [NotNull]
         private List<Rule> GetRulesForPosition(Position userPosition)
         {
             return allRules.Where(
