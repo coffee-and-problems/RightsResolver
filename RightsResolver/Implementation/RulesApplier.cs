@@ -43,11 +43,13 @@ namespace RightsResolver
 
         private Dictionary<string, Role> ApplyProductAccessRule(List<ProductRole> productRoles)
         {
-            var forAllProducts = productRoles.Where(productRole =>
+            var rolesForAllProducts = productRoles.Where(productRole =>
                     string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
-                .ToArray()
-                .FirstOrDefault();
+                .ToArray();
 
+            if (rolesForAllProducts.Length > 1) throw new ArgumentException($"Invalid rule");
+
+            var forAllProducts = rolesForAllProducts.FirstOrDefault();
             var userProductRoles = new Dictionary<string, Role>();
             if (forAllProducts != null)
             {

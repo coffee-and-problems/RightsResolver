@@ -8,7 +8,7 @@ namespace RightsResolver
     public class Merger
     {
         [NotNull]
-        public Rights MergeRights(List<Rights> allRights)
+        public Rights MergeRights([NotNull] List<Rights> allRights)
         {
             var platformAccesses = allRights.Select(right => right.PlatformAccesses).ToList();
             var productAccesses = allRights.Select(right => right.ProductAccesses).ToList();
@@ -21,7 +21,7 @@ namespace RightsResolver
 
         [NotNull]
         private Dictionary<TKey, TValue> MergeDictionaries<TKey, TValue>(
-            List<Dictionary<TKey, TValue>> dictionaryList, Func<TValue, TValue, TValue> mergeRule)
+            [NotNull] List<Dictionary<TKey, TValue>> dictionaryList, Func<TValue, TValue, TValue> mergeRule)
         {
             var merged = new Dictionary<TKey, TValue>();
 

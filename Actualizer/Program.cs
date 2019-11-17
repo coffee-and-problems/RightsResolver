@@ -5,7 +5,7 @@ namespace Actualizer
 {
     class Program
     {
-        public const string rulesPath = @"C:\Users\julie\source\Kontur\RightsResolver\RightsResolver\Rules";
+        public static readonly string rulesPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Rules");
 
         static void Main(string[] args)
         {
