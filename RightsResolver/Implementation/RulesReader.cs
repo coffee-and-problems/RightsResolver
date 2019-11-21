@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Xml;
 using JetBrains.Annotations;
 
@@ -19,6 +21,7 @@ namespace RightsResolver
 
         private XmlDocument LoadXmlFromFile()
         {
+            if (!File.Exists(rulesPath)) throw new InvalidRulesException($"Не найден файл с правилами {rulesPath}");
             rulesDocument.Load(rulesPath);
             return rulesDocument;
         }
@@ -28,41 +31,45 @@ namespace RightsResolver
         {
             var rules = new List<Rule>();
 
-            foreach (XmlNode rule in rulesDocument.DocumentElement)
+            if (rulesDocument.DocumentElement != null)
             {
-                var productAccesses = new Dictionary<Platform, List<ProductRole>>();
-                var platformAccesses = new Dictionary<Platform, Role>();
-                var department = "";
-                var post = "";
-
-                foreach (XmlNode node in rule.ChildNodes)
+                foreach (XmlNode rule in rulesDocument.DocumentElement)
                 {
-                    if (node.Name == "Access")
+                    var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
+                    var platformAccesses = new Dictionary<Platform, Role>();
+                    var department = "";
+                    var post = "";
+
+                    foreach (XmlNode node in rule.ChildNodes)
                     {
-                        var (role, productAccess) = ReadAccess(node);
-                        var platform = (Platform) Enum.Parse(typeof(Platform), 
-                            node.SafeGet("Platform"), true);
-                        if (role != null) platformAccesses.Add(platform, role.Value);
-                        if (productAccess != null) productAccesses.Add(platform, productAccess);
+                        if (node.Name == "Access")
+                        {
+                            var (role, productAccess) = ReadAccess(node);
+                            var platform = (Platform) Enum.Parse(typeof(Platform),
+                                node.SafeGet("Platform"), true);
+                            if (role != null) platformAccesses.Add(platform, role.Value);
+                            if (productAccess != null) productAccesses.Add(platform, productAccess);
+                        }
+                        else if (node.Name == "User")
+                        {
+                            department = node.SafeGet("Department");
+                            post = node.SafeGet("Post");
+                        }
                     }
-                    else if (node.Name == "User")
-                    {
-                        department = node.SafeGet("Department");
-                        post = node.SafeGet("Post");
-                    }
+
+                    rules.Add(new Rule(int.Parse(department), post, productAccesses, platformAccesses));
                 }
 
-                rules.Add(new Rule(int.Parse(department), post, productAccesses, platformAccesses));
+                if (new Validator().IsValid(rules)) return rules;
             }
-
-            if (new Validator().IsValid(rules)) return rules;
-            throw new ArgumentException($"Invalid rules file {rulesPath}");
+            
+            throw new InvalidRulesException($"Некорректные правила {rulesPath}");
         }
 
-        private (Role?, List<ProductRole>) ReadAccess(XmlNode access)
+        private (Role?, Dictionary<string, Role>) ReadAccess(XmlNode access)
         {
             Role? platformAccess = null;
-            var productAccess = new List<ProductRole>();
+            var productAccess = new Dictionary<string, Role>();
 
             foreach (XmlNode node in access.ChildNodes)
             {
@@ -74,23 +81,14 @@ namespace RightsResolver
 
                 if (node.Name == "ProductRole")
                 {
-                    productAccess.Add(new ProductRole(
-                        node.SafeGet("Product"),
-                        (Role) Enum.Parse(typeof(Role), node.SafeGet("Role"), true)));
+                    if (productAccess.ContainsKey(node.SafeGet("Product")))
+                        throw new InvalidRulesException("Продукт встречается неоднократно в рамках одного правила");
+                    productAccess.Add(node.SafeGet("Product"),
+                        (Role) Enum.Parse(typeof(Role), node.SafeGet("Role"), true));
                 }
             }
 
-            return (platformAccess, productAccess.Count == 0? null : productAccess);
-        }
-    }
-
-    public static class XmlNodeExtension
-    {
-        [NotNull]
-        public static string SafeGet(this XmlNode node, string element)
-        {
-            if (node[element] != null) return node[element]?.InnerText;
-            throw new ArgumentException($"Node {node.Name} does not contain element {element}");
+            return (platformAccess, productAccess.Count > 0? productAccess : null);
         }
     }
 }

@@ -8,10 +8,10 @@ namespace RightsResolver
         public int Department { get; }
         [NotNull] public string Post { get; }
         [NotNull] public Dictionary<Platform, Role> PlatformAccesses { get; }
-        [NotNull] public Dictionary<Platform, List<ProductRole>> ProductAccesses { get; }
+        [NotNull] public Dictionary<Platform, Dictionary<string, Role>> ProductAccesses { get; }
 
         public Rule(int department, [NotNull] string post,
-            [NotNull] Dictionary<Platform, List<ProductRole>> productAccesses,
+            [NotNull] Dictionary<Platform, Dictionary<string, Role>> productAccesses,
             [NotNull] Dictionary<Platform, Role> platformAccesses)
         {
             Department = department;

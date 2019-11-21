@@ -29,38 +29,33 @@ namespace RightsResolver
         }
 
         private Dictionary<Platform, Dictionary<string, Role>> GetProductAccesses
-            ([NotNull] Dictionary<Platform, List<ProductRole>> ruleAccesses)
+            ([NotNull] Dictionary<Platform, Dictionary<string, Role>> ruleAccesses)
         {
             var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
 
             foreach (var platform in ruleAccesses.Keys)
             {
-                 productAccesses.Add(platform, ApplyProductAccessRule(ruleAccesses[platform]));
+                 productAccesses.Add(platform, ApplyProductRule(ruleAccesses[platform]));
             }
 
             return productAccesses;
         }
 
-        private Dictionary<string, Role> ApplyProductAccessRule(List<ProductRole> productRoles)
+        private Dictionary<string, Role> ApplyProductRule(Dictionary<string, Role> productRoles)
         {
-            var rolesForAllProducts = productRoles.Where(productRole =>
-                    string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase))
-                .ToArray();
+            Role? forAllProducts = null;
+            if (productRoles.ContainsKey("All")) forAllProducts = productRoles["All"];
 
-            if (rolesForAllProducts.Length > 1) throw new ArgumentException($"Invalid rule");
-
-            var forAllProducts = rolesForAllProducts.FirstOrDefault();
             var userProductRoles = new Dictionary<string, Role>();
             if (forAllProducts != null)
             {
-                userProductRoles = GiveAccessToAllProducts(forAllProducts.Role);
+                userProductRoles = GiveAccessToAllProducts(forAllProducts.Value);
             }
 
             foreach (var productRole in 
-                productRoles.Where(productRole => 
-                    !string.Equals(productRole.ProductId, "All", StringComparison.OrdinalIgnoreCase)))
+                productRoles.Where(productRole => allProducts.Contains(productRole.Key)))
             {
-                userProductRoles.AddOrUpdate(productRole.ProductId, productRole.Role);
+                userProductRoles.AddOrUpdate(productRole.Key, productRole.Value);
             }
 
             return userProductRoles;

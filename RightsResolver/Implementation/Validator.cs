@@ -5,7 +5,7 @@ namespace RightsResolver
 {
     public class Validator
     {
-        private Platform[] productAccessOnly = { Platform.Support };
+        private readonly Platform[] productAccessOnly = { Platform.Support };
 
         public bool IsValid(List<Rule> rules)
         {

@@ -35,9 +35,13 @@ namespace RightsResolver
                     usersRights.Add(new UserRights(user.UserId, actualRight));
                 }
             }
-            catch (Exception e)
+            catch (InvalidRulesException e)
             {
                 return Result.GenerateFail(e.Message);
+            }
+            catch (Exception e)
+            {
+                return Result.GenerateFail($"Что-то пошло не так {e.Message}");
             }
             
             return Result.GenerateSuccess(usersRights);
