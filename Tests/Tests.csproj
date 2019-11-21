@@ -50,12 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllProductsArray.cs" />
-    <Compile Include="MergerShould.cs" />
+    <Compile Include="Tests\MergerShould.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuleApplierShould.cs" />
-    <Compile Include="RulesReaderShould.cs" />
-    <Compile Include="ValidatorShould.cs" />
+    <Compile Include="Generators\RightsGenerator.cs" />
+    <Compile Include="Tests\ApplierShould.cs" />
+    <Compile Include="Tests\FinderShould.cs" />
+    <Compile Include="Generators\RulesGenerator.cs" />
+    <Compile Include="Tests\ReaderShould.cs" />
+    <Compile Include="Tests\ValidatorShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -68,19 +71,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Rules\InvalidTestRules.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Rules\MultipleRules.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Rules\TestRules.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Rules\WithoutUnpackProducts.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Rules\WithUnpackProducts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

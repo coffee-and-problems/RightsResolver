@@ -8,22 +8,17 @@ namespace Tests
     public class RuleApplierShould
     {
         private RulesApplier applier;
-        private string rulesDirectory;
 
         [SetUp]
         public void SetUp()
         {
             applier = new RulesApplier(AllProductsArray.Products);
-
-            var currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
-            rulesDirectory = Path.Combine(currentDirectory, "Rules");
         }
 
         [Test]
         public void ApplyRulesCorrectly_NoUnpack()
         {
-            var rulePath = Path.Combine(rulesDirectory, "WithoutUnpackProducts.xml");
-            var rules = new RulesReader(rulePath).ReadRules();
+            var rules = RulesGenerator.GenerateValidRules(false);
             var rights = applier.ApplyRules(rules);
 
             Assert.AreEqual(1, rights.Count);
@@ -31,14 +26,13 @@ namespace Tests
             Assert.AreEqual(1, rights[0].ProductAccesses.Count);
 
             var productList = rights[0].ProductAccesses[Platform.Support];
-            Assert.AreEqual(2,productList.Count);
+            Assert.AreEqual(1,productList.Count);
         }
 
         [Test]
         public void ApplyRulesCorrectly_WithUnpack()
         {
-            var rulePath = Path.Combine(rulesDirectory, "WithUnpackProducts.xml");
-            var rules = new RulesReader(rulePath).ReadRules();
+            var rules = RulesGenerator.GenerateValidRules(true);
             var rights = applier.ApplyRules(rules);
 
             Assert.AreEqual(1, rights.Count);
@@ -49,25 +43,19 @@ namespace Tests
             Assert.AreEqual(5,productList.Count);
         }
 
-        [Test] public void ConcatRights_OnMultipleRules()
+        [Test] public void AllFlagHasLowestPriority()
         {
-            var rulePath1 = Path.Combine(rulesDirectory, "WithoutUnpackProducts.xml");
-            var rulePath2 = Path.Combine(rulesDirectory, "WithUnpackProducts.xml");
-            var rules = new RulesReader(rulePath1).ReadRules();
-            rules.AddRange(new RulesReader(rulePath2).ReadRules());
+            var rules = RulesGenerator.GenerateValidRules(true);
+            rules[0].ProductAccesses[Platform.Support]["Product1"] = Role.Admin;
             var rights = applier.ApplyRules(rules);
             
-            Assert.AreEqual(2, rights.Count);
+            Assert.AreEqual(1, rights.Count);
             Assert.AreEqual(1, rights[0].PlatformAccesses.Count);
             Assert.AreEqual(1, rights[0].ProductAccesses.Count);
-            Assert.AreEqual(1, rights[1].PlatformAccesses.Count);
-            Assert.AreEqual(1, rights[1].ProductAccesses.Count);
 
-            var productList = rights[0].ProductAccesses[Platform.Support];
-            Assert.AreEqual(2,productList.Count);
-
-            productList = rights[1].ProductAccesses[Platform.Support];
-            Assert.AreEqual(5,productList.Count);
+            var productDict = rights[0].ProductAccesses[Platform.Support];
+            Assert.AreEqual(5,productDict.Count);
+            Assert.AreEqual(Role.Admin,productDict["Product1"]);
         }
     }
 }
