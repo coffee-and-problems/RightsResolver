@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using NUnit.Framework;
-using RightsResolver;
+using RightsResolver.Implementation;
+using RightsResolver.Models;
 
-namespace Tests
+namespace Tests.Tests
 {
     [TestFixture]
-    public class ResolverShould
+    public class ReaderShould
     {
         private RulesReader reader;
         private string filePath;

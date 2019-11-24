@@ -1,4 +1,4 @@
-﻿namespace RightsResolver
+﻿namespace RightsResolver.BusinessObjects
 {
     public enum Platform
     {

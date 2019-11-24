@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests
+namespace Tests.Tests
 {
     [TestFixture]
     public class RulesFinderShould

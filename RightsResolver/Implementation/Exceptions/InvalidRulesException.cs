@@ -1,11 +1,16 @@
 ﻿using System;
+using RightsResolver.BusinessObjects;
 
-namespace RightsResolver
+namespace RightsResolver.Implementation.Exceptions
 {
     public class InvalidRulesException : ArgumentException
     {
-        public InvalidRulesException(string message)
+        public ErrorTypes ErrorType { get; }
+
+        public InvalidRulesException(string message, ErrorTypes errorType)
             : base(message)
-        { }
+        {
+            ErrorType = errorType;
+        }
     }
 }

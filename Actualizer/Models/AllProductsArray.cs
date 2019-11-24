@@ -1,4 +1,4 @@
-﻿namespace Actualizer
+﻿namespace RightsResolverUser.Models
 {
     public static class AllProductsArray
     {

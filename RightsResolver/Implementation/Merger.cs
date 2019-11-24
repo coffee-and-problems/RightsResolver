@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using RightsResolver.BusinessObjects;
+using RightsResolver.Implementation.Extensions;
 
-namespace RightsResolver
+namespace RightsResolver.Implementation
 {
     public class Merger
     {
@@ -13,29 +15,12 @@ namespace RightsResolver
             var platformAccesses = allRights.Select(right => right.PlatformAccesses).ToList();
             var productAccesses = allRights.Select(right => right.ProductAccesses).ToList();
 
-            return new Rights(MergeDictionaries(platformAccesses, EnumExtention.Max),
-                MergeDictionaries(productAccesses, 
-                    (roles1, roles2) => MergeDictionaries(
-                        new List<Dictionary<string, Role>>() {roles1, roles2}, EnumExtention.Max)));
-        }
+            var mergedPlatformAccesses = DictionaryExtension.MergeDictionaries(platformAccesses, EnumExtension.Max);
+            var mergedProductAccesses = DictionaryExtension.MergeDictionaries(productAccesses,
+                (roles1, roles2) => DictionaryExtension.MergeDictionaries(
+                    new List<Dictionary<string, Role>>() {roles1, roles2}, EnumExtension.Max));
 
-        [NotNull]
-        private Dictionary<TKey, TValue> MergeDictionaries<TKey, TValue>(
-            [NotNull] List<Dictionary<TKey, TValue>> dictionaryList, Func<TValue, TValue, TValue> mergeRule)
-        {
-            var merged = new Dictionary<TKey, TValue>();
-
-            foreach (var dictionary in dictionaryList)
-            {
-                foreach (var keyValue in dictionary)
-                {
-                    if (!merged.ContainsKey(keyValue.Key))
-                        merged.Add(keyValue.Key, keyValue.Value);
-                    else merged[keyValue.Key] = mergeRule(merged[keyValue.Key], keyValue.Value);
-                }
-            }
-
-            return merged;
+            return new Rights(mergedPlatformAccesses, mergedProductAccesses);
         }
     }
 }

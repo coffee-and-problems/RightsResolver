@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using RightsResolver.BusinessObjects;
+using RightsResolver.Implementation.Exceptions;
 
-namespace RightsResolver
+namespace RightsResolver.Implementation
 {
     public class Resolver
     {
-        private readonly string[] products;
-        private readonly string rulesPath;
+        [NotNull] private readonly string[] products;
+        [NotNull] private readonly string rulesPath;
 
-        public Resolver(string rulesPath, string[] products)
+        public Resolver([NotNull] string rulesPath, [NotNull] string[] products)
         {
             this.rulesPath = rulesPath;
             this.products = products;
@@ -37,14 +39,14 @@ namespace RightsResolver
             }
             catch (InvalidRulesException e)
             {
-                return Result.GenerateFail(e.Message);
+                return Result.CreateFail(e.Message, e.ErrorType);
             }
             catch (Exception e)
             {
-                return Result.GenerateFail($"Что-то пошло не так {e.Message}");
+                return Result.CreateFail(e.Message);
             }
             
-            return Result.GenerateSuccess(usersRights);
+            return Result.CreateSuccess(usersRights);
         }
     }
 }

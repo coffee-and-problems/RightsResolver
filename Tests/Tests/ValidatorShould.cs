@@ -1,8 +1,8 @@
-﻿using System.IO;
-using NUnit.Framework;
-using RightsResolver;
+﻿using NUnit.Framework;
+using RightsResolver.Implementation;
+using Tests.Generators;
 
-namespace Tests
+namespace Tests.Tests
 {
     [TestFixture]
     public class ValidatorShould
@@ -19,17 +19,26 @@ namespace Tests
         public void Validator_ReturnTrue_OnValidRules()
         {
             var validRules = RulesGenerator.GenerateValidRules(false);
-            Assert.IsTrue(validator.IsValid(validRules));
+            foreach (var rule in validRules)
+            {
+                Assert.IsTrue(validator.IsValid(rule));
+            }
         }
 
         [Test]
         public void Validator_ReturnFalse_OnInvalidRules()
         {
             var invalidRules = RulesGenerator.GenerateInvalidRules(false);
-            Assert.IsFalse(validator.IsValid(invalidRules));
+            foreach (var rule in invalidRules)
+            {
+                Assert.IsFalse(validator.IsValid(rule));
+            }
 
             invalidRules = RulesGenerator.GenerateInvalidRules(true);
-            Assert.IsFalse(validator.IsValid(invalidRules));
+            foreach (var rule in invalidRules)
+            {
+                Assert.IsFalse(validator.IsValid(rule));
+            }
         }
     }
 }

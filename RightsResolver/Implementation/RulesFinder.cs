@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using RightsResolver.BusinessObjects;
+using RightsResolver.Models;
 
-namespace RightsResolver
+namespace RightsResolver.Implementation
 {
     public class RulesFinder
     {
-        private readonly List<Rule> allRules;
+        [NotNull] private readonly List<Rule> allRules;
 
-        public RulesFinder(List<Rule> allRules)
+        public RulesFinder([NotNull] List<Rule> allRules)
         {
             this.allRules = allRules;
         }
@@ -31,14 +33,14 @@ namespace RightsResolver
         {
             return allRules.Where(
                     rule => userPosition.Departments.Contains(rule.Department) 
-                            && PostIsOkForRule(userPosition.Post, rule))
+                            && PostIsOkForRule(userPosition.Post, rule.Post))
                 .ToList();
         }
 
-        private bool PostIsOkForRule(string post, Rule rule)
+        private bool PostIsOkForRule(string userPost, string rulePost)
         {
-            return string.Equals(rule.Post, "Any", StringComparison.OrdinalIgnoreCase)
-                || string.Equals(rule.Post, post, StringComparison.OrdinalIgnoreCase);
+            return string.Equals(rulePost, "Any", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(rulePost, userPost, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace RightsResolver
+namespace RightsResolver.BusinessObjects
 {
     public class UserRights
     {

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using RightsResolver;
+using JetBrains.Annotations;
+using RightsResolver.BusinessObjects;
 
-namespace Actualizer
+namespace RightsResolverUser
 {
     class UserReader
     {
@@ -30,7 +31,7 @@ namespace Actualizer
             return users;
         }
 
-        private User ReadUser(string line)
+        private User ReadUser([NotNull] string line)
         {
             var idPositions = line.Split(';');
             if (idPositions.Length < 2) throw new ArgumentException("Неверный формат пользователя");

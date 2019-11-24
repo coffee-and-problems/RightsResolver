@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using JetBrains.Annotations;
+using RightsResolver.Models;
 
-namespace RightsResolver
+namespace RightsResolver.BusinessObjects
 {
     public class Rights
     {

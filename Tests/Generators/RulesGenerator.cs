@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using RightsResolver;
+using RightsResolver.Models;
 
-namespace Tests
+namespace Tests.Generators
 {
     public static class RulesGenerator
     {

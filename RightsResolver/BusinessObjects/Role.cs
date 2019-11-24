@@ -1,4 +1,4 @@
-﻿namespace RightsResolver
+﻿namespace RightsResolver.Models
 {
     public enum Role
     {

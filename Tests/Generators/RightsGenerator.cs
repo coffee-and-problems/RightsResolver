@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using RightsResolver;
 using System.Linq;
+using RightsResolver.BusinessObjects;
+using RightsResolver.Models;
 
-namespace Tests
+namespace Tests.Generators
 {
     public static class RightsGenerator
     {

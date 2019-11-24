@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using RightsResolver.BusinessObjects;
+using RightsResolver.Implementation.Extensions;
+using RightsResolver.Models;
+using RightsResolver.BusinessObjects;
 
-namespace RightsResolver
+
+namespace RightsResolver.Implementation
 {
     public class RulesApplier
     {
-        private readonly string[] allProducts;
+        [NotNull] private readonly string[] allProducts;
+        private const string allFlag = "All";
 
-        public RulesApplier(string[] allProducts)
+        public RulesApplier([NotNull] string[] allProducts)
         {
             this.allProducts = allProducts;
         }
@@ -44,7 +49,7 @@ namespace RightsResolver
         private Dictionary<string, Role> ApplyProductRule(Dictionary<string, Role> productRoles)
         {
             Role? forAllProducts = null;
-            if (productRoles.ContainsKey("All")) forAllProducts = productRoles["All"];
+            if (productRoles.ContainsKey(allFlag)) forAllProducts = productRoles[allFlag];
 
             var userProductRoles = new Dictionary<string, Role>();
             if (forAllProducts != null)

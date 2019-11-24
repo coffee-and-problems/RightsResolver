@@ -1,8 +1,9 @@
-﻿using System.IO;
-using NUnit.Framework;
-using RightsResolver;
+﻿using NUnit.Framework;
+using RightsResolver.Implementation;
+using RightsResolver.Models;
+using Tests.Generators;
 
-namespace Tests
+namespace Tests.Tests
 {
     [TestFixture]
     public class RuleApplierShould

@@ -1,7 +1,8 @@
 ﻿using System.IO;
-using RightsResolver;
+using RightsResolver.Implementation;
+using RightsResolverUser.Models;
 
-namespace Actualizer
+namespace RightsResolverUser
 {
     class Program
     {
