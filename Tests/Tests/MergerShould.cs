@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using RightsResolver.Implementation;
 using RightsResolver.Models;
+using RightsResolver.BusinessObjects;
 using Tests.Generators;
 
 namespace Tests.Tests

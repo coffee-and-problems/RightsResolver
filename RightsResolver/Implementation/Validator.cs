@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using JetBrains.Annotations;
+using RightsResolver.BusinessObjects;
 using RightsResolver.Models;
 
 namespace RightsResolver.Implementation

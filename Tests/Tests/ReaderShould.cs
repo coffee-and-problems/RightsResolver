@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using NUnit.Framework;
+using RightsResolver.BusinessObjects;
 using RightsResolver.Implementation;
 using RightsResolver.Models;
 
