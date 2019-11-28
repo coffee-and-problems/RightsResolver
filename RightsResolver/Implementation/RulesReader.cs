@@ -12,66 +12,90 @@ namespace RightsResolver.Implementation
 {
     public class RulesReader
     {
-        [NotNull] private readonly XmlDocument rulesDocument;
         [NotNull] private readonly string rulesPath;
+        private readonly bool isDirectory;
 
         public RulesReader([NotNull] string rulesPath)
         {
+            if (Directory.Exists(rulesPath))
+                isDirectory = true;
+            else if (File.Exists(rulesPath))
+                isDirectory = false;
+            else
+                throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.WrongRules); 
             this.rulesPath = rulesPath;
-            rulesDocument = new XmlDocument();
-            rulesDocument = LoadXmlFromFile();
-        }
-
-        private XmlDocument LoadXmlFromFile()
-        {
-            if (!File.Exists(rulesPath)) throw new InvalidRulesException($"Не найден файл {rulesPath}",
-                ErrorTypes.WrongRules);
-            rulesDocument.Load(rulesPath);
-            return rulesDocument;
         }
 
         [NotNull]
         public List<Rule> ReadRules()
         {
             var rules = new List<Rule>();
-            var documentElement = rulesDocument.DocumentElement;
-            if (documentElement == null)
-                throw new InvalidRulesException($"{rulesPath}", ErrorTypes.WrongRules);
-            if (documentElement.ChildNodes.Count < 1)
-                throw new InvalidRulesException($"Пустые правила: {rulesPath}", ErrorTypes.WrongRules);
-
-            foreach (XmlNode xmlRule in documentElement)
+            if (isDirectory)
             {
-                var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
-                var platformAccesses = new Dictionary<Platform, Role>();
-                var department = "";
-                var post = "";
-
-                foreach (XmlNode userOrAccess in xmlRule.ChildNodes)
+                var files = Directory.GetFiles(rulesPath);
+                foreach (var file in files)
                 {
-                    if (userOrAccess.Name == "Access")
-                    {
-                        var (role, productAccess) = ReadAccess(userOrAccess);
-                        var platform = (Platform) Enum.Parse(typeof(Platform),
-                            userOrAccess.Get("Platform"), true);
-                        if (role != null) platformAccesses.Add(platform, role.Value);
-                        if (productAccess != null) productAccesses.Add(platform, productAccess);
-                    }
-                    else if (userOrAccess.Name == "User")
-                    {
-                        department = userOrAccess.Get("Department");
-                        post = userOrAccess.Get("Post");
-                    }
+                    rules.AddRange(ReadRulesFromFile(file));
                 }
-
-                var rule = new Rule(int.Parse(department), post, productAccesses, platformAccesses);
-                if (new Validator().IsValid(rule))
-                    rules.Add(rule);
-                else
-                    throw new InvalidRulesException($"{rulesPath}", ErrorTypes.InvalidRules);
+            }
+            else
+            {
+                rules = ReadRulesFromFile(rulesPath);
             }
 
             return rules;
+        }
+
+        [NotNull]
+        private List<Rule> ReadRulesFromFile(string file)
+        {
+            var rulesDocument = new XmlDocument();
+            rulesDocument.Load(file);
+
+            var rules = new List<Rule>();
+            var documentElement = rulesDocument.DocumentElement;
+            if (documentElement == null)
+                throw new InvalidRulesException($"{file}", ErrorTypes.WrongRules);
+            if (documentElement.ChildNodes.Count < 1)
+                throw new InvalidRulesException($"Пустые правила: {file}", ErrorTypes.WrongRules);
+
+            foreach (XmlNode xmlRule in documentElement)
+            {
+                var rule = ReadRule(xmlRule);
+                if (new Validator().IsValid(rule))
+                    rules.Add(rule);
+                else
+                    throw new InvalidRulesException($"{file}", ErrorTypes.InvalidRules);
+            }
+
+            return rules;
+        }
+
+        private Rule ReadRule(XmlNode xmlRule)
+        {
+            var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
+            var platformAccesses = new Dictionary<Platform, Role>();
+            var department = "";
+            var post = "";
+
+            foreach (XmlNode userOrAccess in xmlRule.ChildNodes)
+            {
+                if (userOrAccess.Name == "Access")
+                {
+                    var (role, productAccess) = ReadAccess(userOrAccess);
+                    var platform = (Platform) Enum.Parse(typeof(Platform),
+                        userOrAccess.Get("Platform"), true);
+                    if (role != null) platformAccesses.Add(platform, role.Value);
+                    if (productAccess != null) productAccesses.Add(platform, productAccess);
+                }
+                else if (userOrAccess.Name == "User")
+                {
+                    department = userOrAccess.Get("Department");
+                    post = userOrAccess.Get("Post");
+                }
+            }
+
+            return new Rule(int.Parse(department), post, productAccesses, platformAccesses);
         }
 
         private (Role?, Dictionary<string, Role>) ReadAccess(XmlNode access)
