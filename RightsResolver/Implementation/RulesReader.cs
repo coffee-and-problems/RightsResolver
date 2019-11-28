@@ -25,7 +25,7 @@ namespace RightsResolver.Implementation
         private XmlDocument LoadXmlFromFile()
         {
             if (!File.Exists(rulesPath)) throw new InvalidRulesException($"Не найден файл {rulesPath}",
-                ErrorTypes.NoRulesFound);
+                ErrorTypes.WrongRules);
             rulesDocument.Load(rulesPath);
             return rulesDocument;
         }
@@ -34,11 +34,13 @@ namespace RightsResolver.Implementation
         public List<Rule> ReadRules()
         {
             var rules = new List<Rule>();
+            var documentElement = rulesDocument.DocumentElement;
+            if (documentElement == null)
+                throw new InvalidRulesException($"{rulesPath}", ErrorTypes.WrongRules);
+            if (documentElement.ChildNodes.Count < 1)
+                throw new InvalidRulesException($"Пустые правила: {rulesPath}", ErrorTypes.WrongRules);
 
-            if (rulesDocument.DocumentElement == null)
-                throw new InvalidRulesException($"{rulesPath}", ErrorTypes.InvalidRules);
-            
-            foreach (XmlNode xmlRule in rulesDocument.DocumentElement)
+            foreach (XmlNode xmlRule in documentElement)
             {
                 var productAccesses = new Dictionary<Platform, Dictionary<string, Role>>();
                 var platformAccesses = new Dictionary<Platform, Role>();

@@ -7,8 +7,8 @@ namespace RightsResolver.BusinessObjects
         [Description("Что-то пошло не так")]
         SomethingWentWrong,
         [Description("Некорректные правила")]
-        InvalidRules,
-        [Description("Правила не найдены")]
-        NoRulesFound
+        WrongRules,
+        [Description("Невалидные правила")]
+        InvalidRules
     }
 }
