@@ -64,6 +64,14 @@ namespace Tests.Tests
             Assert.AreEqual(rules[3], applicableRules[3]);
         }
 
+        [Test]
+        public void ReturnEmpty_WhenNoApplicable()
+        {
+            var user = GetUser(new Position(new int[0], "somePost"));
+            var applicableRules = finder.GetApplicableRules(user);
+            Assert.IsEmpty(applicableRules);
+        }
+
         private User GetUser(params Position[] positions)
         {
             return new User(new Guid("FD624BB9-E6D5-4E57-9C10-59B282DBE9CE"),
