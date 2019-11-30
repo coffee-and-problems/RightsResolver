@@ -25,16 +25,11 @@ namespace Tests.Tests
             }
         }
 
-        [Test]
-        public void Validator_ReturnFalse_OnInvalidRules()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Validator_ReturnFalse_OnInvalidRules(bool wrongPlatformAccesses)
         {
-            var invalidRules = RulesGenerator.GenerateInvalidRules(false);
-            foreach (var rule in invalidRules)
-            {
-                Assert.IsFalse(validator.IsValid(rule));
-            }
-
-            invalidRules = RulesGenerator.GenerateInvalidRules(true);
+            var invalidRules = RulesGenerator.GenerateInvalidRules(wrongPlatformAccesses);
             foreach (var rule in invalidRules)
             {
                 Assert.IsFalse(validator.IsValid(rule));

@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using RightsResolver.Implementation;
 using RightsResolver.Models;
 using RightsResolver.BusinessObjects;
@@ -15,6 +17,16 @@ namespace Tests.Tests
         public void SetUp()
         {
             merger = new Merger();
+        }
+
+        [Test]
+        public void NoMerge_OnEmptyList()
+        {
+            var allRights = new List<Rights>();
+            Assert.DoesNotThrow(() => merger.MergeRights(allRights));
+            var mergedRules = merger.MergeRights(allRights);
+            Assert.IsEmpty(mergedRules.ProductAccesses);
+            Assert.IsEmpty(mergedRules.PlatformAccesses);
         }
 
         [Test]
@@ -41,7 +53,7 @@ namespace Tests.Tests
             var mergedRules = merger.MergeRights(allRights);
 
             Assert.AreEqual(1, mergedRules.PlatformAccesses.Count);
-            Assert.AreEqual(Role.Admin, mergedRules.PlatformAccesses[Platform.Health]);
+            Assert.AreEqual(Role.RoleII, mergedRules.PlatformAccesses[Platform.Health]);
         }
 
         [Test]
@@ -55,9 +67,39 @@ namespace Tests.Tests
             Assert.AreEqual(5, productAccesses.Count);
             foreach (var role in productAccesses.Values)
             {
-                Assert.AreEqual(Role.Admin, role);
+                Assert.AreEqual(Role.RoleII, role);
             }
         }
 
+        [Test]
+        public void Merge_ManyRights()
+        {
+            var allRights = RightsGenerator.GenerateRights(true);
+            var productAccessesWithAdmin = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleII);
+            productAccessesWithAdmin["Product3"] = Role.Admin;
+            productAccessesWithAdmin["Product5"] = Role.Admin;
+            var platformAccessesWithAdmin = new Dictionary<Platform, Role>
+            {
+                {Platform.Health, Role.Admin},
+                {Platform.Oorv, Role.RoleI}
+            };
+
+            allRights.Add(new Rights(
+                platformAccessesWithAdmin,
+                new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesWithAdmin}}));
+            var mergedRules = merger.MergeRights(allRights);
+
+            Assert.AreEqual(2, mergedRules.PlatformAccesses.Count);
+            Assert.AreEqual(platformAccessesWithAdmin, mergedRules.PlatformAccesses);
+            var productAccesses = mergedRules.ProductAccesses[Platform.Support];
+            Assert.AreEqual(5, productAccesses.Count);
+            foreach (var product in AllProductsArray.Products)
+            {
+                if (product == "Product3" || product == "Product5")
+                    Assert.AreEqual(Role.Admin, productAccesses[product]);
+                else 
+                    Assert.AreEqual(Role.RoleII, productAccesses[product]);
+            }
+        }
     }
 }

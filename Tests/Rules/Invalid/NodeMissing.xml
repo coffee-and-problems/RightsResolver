@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<RulesDeclaration>
+  <Rule>
+    <User>
+      <Department>0</Department>
+    </User>
+
+    <Access>
+      <Platform>Oorv</Platform>
+      <Role>Admin</Role>
+    </Access>
+  </Rule>
+</RulesDeclaration>

@@ -18,10 +18,11 @@ namespace Tests.Generators
 
             if (merge)
             {
-                var productAccessesAdmin = AllProductsArray.Products.ToDictionary(product => product, r => Role.Admin);
+                var productAccessesHigherRole = AllProductsArray.Products.ToDictionary(
+                    product => product, r => Role.RoleII);
                 rights.Add(new Rights(
-                    new Dictionary<Platform, Role> {{Platform.Health, Role.Admin}},
-                    new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesAdmin}}));
+                    new Dictionary<Platform, Role> {{Platform.Health, Role.RoleII}},
+                    new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesHigherRole}}));
             }
 
             return rights;
