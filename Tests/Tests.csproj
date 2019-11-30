@@ -58,6 +58,7 @@
     <Compile Include="Tests\FinderShould.cs" />
     <Compile Include="Generators\RulesGenerator.cs" />
     <Compile Include="Tests\ReaderShould.cs" />
+    <Compile Include="Tests\RightsResolverShould.cs" />
     <Compile Include="Tests\ValidatorShould.cs" />
   </ItemGroup>
   <ItemGroup>

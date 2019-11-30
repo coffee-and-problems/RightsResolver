@@ -20,7 +20,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void NoMerge_OnEmptyList()
+        public void ReturnEmpty_OnEmptyList()
         {
             var allRights = new List<Rights>();
             Assert.DoesNotThrow(() => merger.MergeRights(allRights));
@@ -30,7 +30,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void NoMerge_WhenNotNeeded()
+        public void NotMerge_WhenNotNeeded()
         {
             var allRights = RightsGenerator.GenerateRights(false);
             var mergedRules = merger.MergeRights(allRights);

@@ -19,7 +19,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void NoApply_OnEmptyRules()
+        public void ReturnEmpty_OnEmptyRules()
         {
             var rules = new List<Rule>();
             var rights = applier.ApplyRules(rules);
@@ -28,7 +28,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void ApplyRulesCorrectly_NoUnpack()
+        public void ApplyRulesCorrectly_WhenNoUnpack()
         {
             var rules = RulesGenerator.GenerateValidRules(false);
             var rights = applier.ApplyRules(rules);
@@ -42,7 +42,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void SkipUnknownProducts()
+        public void ApplyRules_WithSkipingUnknownProducts()
         {
             var rules = RulesGenerator.GenerateValidRules(false);
             rules[0].ProductAccesses[Platform.Support].Add("Unknown", Role.RoleII);
@@ -58,7 +58,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void ApplyRulesCorrectly_WithUnpack()
+        public void ApplyRulesCorrectly_WhenWithUnpack()
         {
             var rules = RulesGenerator.GenerateValidRules(true);
             var rights = applier.ApplyRules(rules);
@@ -71,7 +71,7 @@ namespace Tests.Tests
             Assert.AreEqual(5,productList.Count);
         }
 
-        [Test] public void AllFlagHasLowestPriority()
+        [Test] public void ApplyRules_WithAllFlagHavingLowestPriority()
         {
             var rules = RulesGenerator.GenerateValidRules(true);
             rules[0].ProductAccesses[Platform.Support]["Product1"] = Role.Admin;

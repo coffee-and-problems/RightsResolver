@@ -33,7 +33,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void ReadRules_WhenMultipleRules()
+        public void ReadAllRules_WhenMultipleRulesInFile()
         {
             var reader = new RulesReader(Path.Combine(filePath, "Valid", "MultipleRules.xml"));
             var rules = reader.ReadRules();
@@ -64,7 +64,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void ReadRules_InDirectory()
+        public void ReadAllRules_InDirectory()
         {
             var reader = new RulesReader(Path.Combine(filePath, "Valid"));
             var rules = reader.ReadRules();

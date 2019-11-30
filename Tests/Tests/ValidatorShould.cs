@@ -16,7 +16,7 @@ namespace Tests.Tests
         }
 
         [Test]
-        public void Validator_ReturnTrue_OnValidRules()
+        public void ReturnTrue_OnValidRules()
         {
             var validRules = RulesGenerator.GenerateValidRules(false);
             foreach (var rule in validRules)
@@ -27,7 +27,7 @@ namespace Tests.Tests
 
         [TestCase(true)]
         [TestCase(false)]
-        public void Validator_ReturnFalse_OnInvalidRules(bool wrongPlatformAccesses)
+        public void ReturnFalse_OnInvalidRules(bool wrongPlatformAccesses)
         {
             var invalidRules = RulesGenerator.GenerateInvalidRules(wrongPlatformAccesses);
             foreach (var rule in invalidRules)
