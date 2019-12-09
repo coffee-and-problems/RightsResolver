@@ -22,7 +22,7 @@ namespace RightsResolver.Implementation
             else if (File.Exists(rulesPath))
                 isDirectory = false;
             else
-                throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.WrongFile); 
+                throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.IncorrectFile); 
             this.rulesPath = rulesPath;
         }
 
@@ -55,9 +55,9 @@ namespace RightsResolver.Implementation
             var rules = new List<Rule>();
             var documentElement = rulesDocument.DocumentElement;
             if (documentElement == null)
-                throw new InvalidRulesException($"{file}", ErrorTypes.WrongFile);
+                throw new InvalidRulesException($"{file}", ErrorTypes.IncorrectFile);
             if (documentElement.ChildNodes.Count < 1)
-                throw new InvalidRulesException($"Пустые правила: {file}", ErrorTypes.WrongFile);
+                throw new InvalidRulesException($"Пустые правила: {file}", ErrorTypes.IncorrectFile);
 
             foreach (XmlNode xmlRule in documentElement)
             {

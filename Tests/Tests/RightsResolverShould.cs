@@ -48,7 +48,7 @@ namespace Tests.Tests
 
             Assert.IsFalse(result.IsSuccessful);
             Assert.IsNotEmpty(result.Message);
-            Assert.AreEqual(ErrorTypes.WrongFile, result.ErrorType);
+            Assert.AreEqual(ErrorTypes.IncorrectFile, result.ErrorType);
             Assert.IsNull(result.UserRights);
         }
 
