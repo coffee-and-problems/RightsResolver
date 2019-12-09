@@ -22,7 +22,7 @@ namespace RightsResolver.Implementation
             else if (File.Exists(rulesPath))
                 isDirectory = false;
             else
-                throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.WrongRules); 
+                throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.WrongFile); 
             this.rulesPath = rulesPath;
         }
 
@@ -55,14 +55,14 @@ namespace RightsResolver.Implementation
             var rules = new List<Rule>();
             var documentElement = rulesDocument.DocumentElement;
             if (documentElement == null)
-                throw new InvalidRulesException($"{file}", ErrorTypes.WrongRules);
+                throw new InvalidRulesException($"{file}", ErrorTypes.WrongFile);
             if (documentElement.ChildNodes.Count < 1)
-                throw new InvalidRulesException($"Пустые правила: {file}", ErrorTypes.WrongRules);
+                throw new InvalidRulesException($"Пустые правила: {file}", ErrorTypes.WrongFile);
 
             foreach (XmlNode xmlRule in documentElement)
             {
                 var rule = ReadRule(xmlRule);
-                if (new Validator().IsValid(rule))
+                if (new RuleValidator().IsValid(rule))
                     rules.Add(rule);
                 else
                     throw new InvalidRulesException($"{file}", ErrorTypes.InvalidRules);
@@ -105,7 +105,6 @@ namespace RightsResolver.Implementation
 
             foreach (XmlNode roleOrProductRole in access.ChildNodes)
             {
-
                 if (roleOrProductRole.Name == "Role")
                 {
                     var role = access.Get("Role").SafeParseNullableEnum<Role>();

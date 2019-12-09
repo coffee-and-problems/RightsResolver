@@ -12,14 +12,14 @@ namespace Tests.Tests
     [TestFixture]
     public class RightsResolverShould
     {
-        private Resolver resolver;
+        private RightsResolver.Implementation.RightsResolver resolver;
 
         [SetUp]
         public void SetUp()
         {
             var currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var rulesPath = Path.Combine(currentDirectory, "Rules", "Valid", "MultipleRules.xml");
-            resolver = new Resolver(rulesPath, AllProductsArray.Products);
+            resolver = new RightsResolver.Implementation.RightsResolver(rulesPath, AllProductsArray.Products);
         }
 
         [Test]
@@ -42,13 +42,13 @@ namespace Tests.Tests
         [Test]
         public void CreateFail_WhenNoFile()
         {
-            var resolverToFail = new Resolver("NotExists.xml", AllProductsArray.Products);
+            var resolverToFail = new RightsResolver.Implementation.RightsResolver("NotExists.xml", AllProductsArray.Products);
             var user = GetUser();
             var result = resolverToFail.GetUserRights(new List<User> { user });
 
             Assert.IsFalse(result.IsSuccessful);
             Assert.IsNotEmpty(result.Message);
-            Assert.AreEqual(ErrorTypes.WrongRules, result.ErrorType);
+            Assert.AreEqual(ErrorTypes.WrongFile, result.ErrorType);
             Assert.IsNull(result.UserRights);
         }
 
@@ -59,12 +59,12 @@ namespace Tests.Tests
                 new Position(new[] { 2 }, "post2") });
         }
 
-        private Rights GetRights()
+        private RuleRights GetRights()
         {
             var expectedProductRights = AllProductsArray.Products
                 .ToDictionary(product => product, product => Role.RoleII);
             expectedProductRights["Product1"] = Role.Admin;
-            return new Rights(
+            return new RuleRights(
                 new Dictionary<Platform, Role> {{ Platform.Health, Role.Admin }, { Platform.Oorv, Role.Admin }},
                 new Dictionary<Platform, Dictionary<string, Role>> {{ Platform.Support, expectedProductRights }}
             );

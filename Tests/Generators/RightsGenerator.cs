@@ -7,12 +7,12 @@ namespace Tests.Generators
 {
     public static class RightsGenerator
     {
-        public static List<Rights> GenerateRights(bool merge)
+        public static List<RuleRights> GenerateRights(bool merge)
         {
-            var rights = new List<Rights>();
+            var rights = new List<RuleRights>();
             var productAccessesRoleI = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleI);
 
-            rights.Add(new Rights(
+            rights.Add(new RuleRights(
                 new Dictionary<Platform, Role> {{Platform.Health, Role.RoleI}},
                 new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesRoleI}}));
 
@@ -20,7 +20,7 @@ namespace Tests.Generators
             {
                 var productAccessesHigherRole = AllProductsArray.Products.ToDictionary(
                     product => product, r => Role.RoleII);
-                rights.Add(new Rights(
+                rights.Add(new RuleRights(
                     new Dictionary<Platform, Role> {{Platform.Health, Role.RoleII}},
                     new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesHigherRole}}));
             }

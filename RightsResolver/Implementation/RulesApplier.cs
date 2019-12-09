@@ -12,7 +12,7 @@ namespace RightsResolver.Implementation
     public class RulesApplier
     {
         [NotNull] private readonly string[] allProducts;
-        private const string allFlag = "All";
+        private const string AllFlag = "All";
 
         public RulesApplier([NotNull] string[] allProducts)
         {
@@ -20,17 +20,17 @@ namespace RightsResolver.Implementation
         }
 
         [NotNull]
-        public List<Rights> ApplyRules([NotNull] List<Rule> rules)
+        public List<RuleRights> ApplyRules([NotNull] List<Rule> rules)
         {
             return rules.Select(ApplyRule).ToList();
         }
 
-        private Rights ApplyRule([NotNull] Rule rule)
+        private RuleRights ApplyRule([NotNull] Rule rule)
         {
             var platformAccesses = rule.PlatformAccesses;
             var productAccesses = GetProductAccesses(rule.ProductAccesses);
 
-            return new Rights(platformAccesses, productAccesses);
+            return new RuleRights(platformAccesses, productAccesses);
         }
 
         private Dictionary<Platform, Dictionary<string, Role>> GetProductAccesses
@@ -49,7 +49,7 @@ namespace RightsResolver.Implementation
         private Dictionary<string, Role> ApplyProductRule(Dictionary<string, Role> productRoles)
         {
             Role? forAllProducts = null;
-            if (productRoles.ContainsKey(allFlag)) forAllProducts = productRoles[allFlag];
+            if (productRoles.ContainsKey(AllFlag)) forAllProducts = productRoles[AllFlag];
 
             var userProductRoles = new Dictionary<string, Role>();
             if (forAllProducts != null)

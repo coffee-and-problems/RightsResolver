@@ -7,12 +7,12 @@ namespace Tests.Tests
     [TestFixture]
     public class ValidatorShould
     {
-        private Validator validator;
+        private RuleValidator validator;
 
         [SetUp]
         public void SetUp()
         {
-            validator = new Validator();
+            validator = new RuleValidator();
         }
 
         [Test]

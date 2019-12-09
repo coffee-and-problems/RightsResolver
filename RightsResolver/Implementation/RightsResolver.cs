@@ -6,12 +6,12 @@ using RightsResolver.Implementation.Exceptions;
 
 namespace RightsResolver.Implementation
 {
-    public class Resolver
+    public class RightsResolver
     {
         [NotNull] private readonly string[] products;
         [NotNull] private readonly string rulesPath;
 
-        public Resolver([NotNull] string rulesPath, [NotNull] string[] products)
+        public RightsResolver([NotNull] string rulesPath, [NotNull] string[] products)
         {
             this.rulesPath = rulesPath;
             this.products = products;
@@ -26,14 +26,14 @@ namespace RightsResolver.Implementation
             {
                 var allRules = new RulesReader(rulesPath).ReadRules();
                 var rulesFinder = new RulesFinder(allRules);
-                var applier = new RulesApplier(products);
-                var merger = new Merger();
+                var rulesApplier = new RulesApplier(products);
+                var rightsMerger = new RightsMerger();
 
                 foreach (var user in users)
                 {
                     var applicableRules = rulesFinder.GetApplicableRules(user);
-                    var allPossibleRights = applier.ApplyRules(applicableRules);
-                    var actualRight = merger.MergeRights(allPossibleRights);
+                    var allPossibleRights = rulesApplier.ApplyRules(applicableRules);
+                    var actualRight = rightsMerger.MergeRights(allPossibleRights);
                     usersRights.Add(new UserRights(user.UserId, actualRight));
                 }
             }

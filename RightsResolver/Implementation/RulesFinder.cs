@@ -34,7 +34,7 @@ namespace RightsResolver.Implementation
             return allRules.Where(
                     rule => userPosition.Departments.Contains(rule.Department) 
                             && PostIsOkForRule(userPosition.Post, rule.Post))
-                .ToList();
+                   .ToList();
         }
 
         private bool PostIsOkForRule(string userPost, string rulePost)

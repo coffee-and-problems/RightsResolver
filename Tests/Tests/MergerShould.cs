@@ -11,18 +11,18 @@ namespace Tests.Tests
     [TestFixture]
     public class MergerShould
     {
-        private Merger merger;
+        private RightsMerger merger;
 
         [SetUp]
         public void SetUp()
         {
-            merger = new Merger();
+            merger = new RightsMerger();
         }
 
         [Test]
         public void ReturnEmpty_OnEmptyList()
         {
-            var allRights = new List<Rights>();
+            var allRights = new List<RuleRights>();
             Assert.DoesNotThrow(() => merger.MergeRights(allRights));
             var mergedRules = merger.MergeRights(allRights);
             Assert.IsEmpty(mergedRules.ProductAccesses);
@@ -84,7 +84,7 @@ namespace Tests.Tests
                 {Platform.Oorv, Role.RoleI}
             };
 
-            allRights.Add(new Rights(
+            allRights.Add(new RuleRights(
                 platformAccessesWithAdmin,
                 new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesWithAdmin}}));
             var mergedRules = merger.MergeRights(allRights);

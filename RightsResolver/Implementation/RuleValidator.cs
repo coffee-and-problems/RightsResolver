@@ -5,7 +5,7 @@ using RightsResolver.Models;
 
 namespace RightsResolver.Implementation
 {
-    public class Validator
+    public class RuleValidator
     {
         private readonly Platform[] productAccessOnly = { Platform.Support };
 
