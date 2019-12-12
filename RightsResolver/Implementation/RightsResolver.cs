@@ -24,7 +24,7 @@ namespace RightsResolver.Implementation
 
             try
             {
-                var allRules = new RulesReader(rulesPath).ReadRules();
+                var allRules = new RulesReader().ReadRules(rulesPath);
                 var rulesFinder = new RulesFinder(allRules);
                 var rulesApplier = new RulesApplier(products);
                 var rightsMerger = new RightsMerger();

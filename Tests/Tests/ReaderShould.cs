@@ -10,9 +10,12 @@ namespace Tests.Tests
     public class ReaderShould
     {
         private string filePath;
+        private RulesReader reader;
+
         [SetUp]
         public void SetUp()
         {
+            reader = new RulesReader();
             var currentDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             filePath = Path.Combine(currentDirectory, "Rules");
         }
@@ -20,8 +23,7 @@ namespace Tests.Tests
         [Test]
         public void ReadRules_WhenAllIsFine()
         {
-            var reader = new RulesReader(Path.Combine(filePath, "Valid", "TestRules.xml"));
-            var rules = reader.ReadRules();
+            var rules = reader.ReadRules(Path.Combine(filePath, "Valid", "TestRules.xml"));
 
             Assert.AreEqual(1, rules.Count);
             var rule = rules[0];
@@ -35,8 +37,7 @@ namespace Tests.Tests
         [Test]
         public void ReadAllRules_WhenMultipleRulesInFile()
         {
-            var reader = new RulesReader(Path.Combine(filePath, "Valid", "MultipleRules.xml"));
-            var rules = reader.ReadRules();
+            var rules = reader.ReadRules(Path.Combine(filePath, "Valid", "MultipleRules.xml"));
            
             Assert.AreEqual(4, rules.Count);
             var rule = rules[0];
@@ -66,8 +67,7 @@ namespace Tests.Tests
         [Test]
         public void ReadAllRules_InDirectory()
         {
-            var reader = new RulesReader(Path.Combine(filePath, "Valid"));
-            var rules = reader.ReadRules();
+            var rules = reader.ReadRules(Path.Combine(filePath, "Valid"));
 
             Assert.AreEqual(5, rules.Count);
         }
@@ -76,7 +76,7 @@ namespace Tests.Tests
         public void Throws_WhenNoFile()
         {
             var rulesPath = Path.Combine(filePath, "Invalid", "NotExists.xml");
-            var exception = Assert.Throws<InvalidRulesException>(() => new RulesReader(rulesPath));
+            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules(rulesPath));
             Assert.IsNotEmpty(exception.Message);
         }
 
@@ -84,27 +84,24 @@ namespace Tests.Tests
         public void Throws_WhenEmptyFile()
         {
             var rulesPath = Path.Combine(filePath, "Invalid", "EmptyFile.xml");
-            var reader = new RulesReader(rulesPath);
-            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules());
-            Assert.AreEqual($"Пустые правила: {rulesPath}", exception.Message);
+            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules(rulesPath));
+            Assert.IsNotEmpty(exception.Message);
         }
 
         [Test]
         public void Throws_WhenInvalidRules()
         {
             var rulesPath = Path.Combine(filePath, "Invalid", "InvalidRules.xml");
-            var reader = new RulesReader(rulesPath);
-            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules());
-            Assert.AreEqual($"{rulesPath}", exception.Message);
+            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules(rulesPath));
+            Assert.IsNotEmpty(exception.Message);
         }
 
         [Test]
         public void Throws_WhenNodeMissing()
         {
             var rulesPath = Path.Combine(filePath, "Invalid", "NodeMissing.xml");
-            var reader = new RulesReader(rulesPath);
-            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules());
-            Assert.AreEqual("Нод User не содержит элемента Post", exception.Message);
+            var exception = Assert.Throws<InvalidRulesException>(() => reader.ReadRules(rulesPath));
+            Assert.IsNotEmpty(exception.Message);
         }
     }
 }

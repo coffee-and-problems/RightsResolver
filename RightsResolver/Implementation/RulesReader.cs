@@ -12,25 +12,20 @@ namespace RightsResolver.Implementation
 {
     public class RulesReader
     {
-        [NotNull] private readonly string rulesPath;
-        private readonly bool isDirectory;
-
-        public RulesReader([NotNull] string rulesPath)
+        private bool IsDirectory([NotNull] string rulesPath)
         {
             if (Directory.Exists(rulesPath))
-                isDirectory = true;
-            else if (File.Exists(rulesPath))
-                isDirectory = false;
-            else
-                throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.IncorrectFile); 
-            this.rulesPath = rulesPath;
+                return true;
+            if (File.Exists(rulesPath))
+                return false;
+            throw new InvalidRulesException($"Не найден файл {rulesPath}", ErrorTypes.IncorrectFile); 
         }
 
         [NotNull]
-        public List<Rule> ReadRules()
+        public List<Rule> ReadRules([NotNull] string rulesPath)
         {
             var rules = new List<Rule>();
-            if (isDirectory)
+            if (IsDirectory(rulesPath))
             {
                 var files = Directory.GetFiles(rulesPath);
                 foreach (var file in files)
