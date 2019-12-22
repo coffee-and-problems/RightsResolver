@@ -4,12 +4,12 @@ using RightsResolver.Models;
 
 namespace RightsResolver.BusinessObjects
 {
-    public class RuleRights
+    public class Rights
     {
         [NotNull] public Dictionary<Platform, Role> PlatformAccesses {get;}
         [NotNull] public Dictionary<Platform, Dictionary<string, Role>> ProductAccesses { get; }
 
-        public RuleRights([NotNull] Dictionary<Platform, Role> platformAccesses,
+        public Rights([NotNull] Dictionary<Platform, Role> platformAccesses,
             [NotNull] Dictionary<Platform, Dictionary<string, Role>> productAccesses)
         {
             PlatformAccesses = platformAccesses;

@@ -6,9 +6,9 @@ namespace RightsResolver.BusinessObjects
     public class UserRights
     {
         public Guid UserId { get; }
-        [NotNull] public RuleRights Rights { get; }
+        [NotNull] public Rights Rights { get; }
 
-        public UserRights(Guid userId, [NotNull] RuleRights rights)
+        public UserRights(Guid userId, [NotNull] Rights rights)
         {
             UserId = userId;
             Rights = rights;

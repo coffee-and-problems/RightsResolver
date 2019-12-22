@@ -21,7 +21,7 @@ namespace Tests.Tests
         }
 
         [TestCaseSource(nameof(GenerateRulesApplierCases))]
-        public void TestRulesApplier(List<Rule> rules, List<RuleRights> expectedRights)
+        public void TestRulesApplier(List<Rule> rules, List<Rights> expectedRights)
         {
             var rights = applier.ApplyRules(rules);
 
@@ -32,20 +32,17 @@ namespace Tests.Tests
         {
             var noUnpackRules = RulesGenerator.GenerateValidRules(false);
             var noUnpackRights = noUnpackRules
-                .Select(rule => new RuleRights(rule.PlatformAccesses, rule.ProductAccesses))
+                .Select(rule => new Rights(rule.PlatformAccesses, rule.ProductAccesses))
                 .ToList();
-
             var withUnpackRules = RulesGenerator.GenerateValidRules(true);
-
             var withExtraProduct = RulesGenerator.GenerateValidRules(false);
             withExtraProduct[0].ProductAccesses[Platform.Support].Add("Unknown", Role.RoleII);
-
             var specifiedRoleAndAllFlag = RulesGenerator.GenerateValidRules(true);
             specifiedRoleAndAllFlag[0].ProductAccesses[Platform.Support]["Product1"] = Role.Admin;
             var rightsForSpecifiedRole = GetRightWithAllFlag();
             rightsForSpecifiedRole[0].ProductAccesses[Platform.Support]["Product1"] = Role.Admin;
 
-            yield return new TestCaseData(new List<Rule>(), new List<RuleRights>())
+            yield return new TestCaseData(new List<Rule>(), new List<Rights>())
                 .SetName("Нет правил для применения. Возвращает пустой лист");
             yield return new TestCaseData(noUnpackRules, noUnpackRights)
                 .SetName("Нет флага All. Успех");
@@ -57,12 +54,12 @@ namespace Tests.Tests
                 .SetName("Роль, указанная в All, имеет наименьший приоретет");
         }
 
-        private static List<RuleRights> GetRightWithAllFlag()
+        private static List<Rights> GetRightWithAllFlag()
         {
             var productAccesses =
                 AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleI);
             var platformAccesses = new Dictionary<Platform, Role> {{ Platform.Oorv, Role.RoleI }};
-            return new List<RuleRights> {new RuleRights(platformAccesses,
+            return new List<Rights> {new Rights(platformAccesses,
                 new Dictionary<Platform, Dictionary<string, Role>> {{ Platform.Support, productAccesses }})};
         }
     }

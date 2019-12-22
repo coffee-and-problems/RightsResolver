@@ -57,7 +57,7 @@
     <Compile Include="Implementation\Extensions\EnumExtensions.cs" />
     <Compile Include="Implementation\Extensions\XmlNodeExtensions.cs" />
     <Compile Include="Implementation\RightsMerger.cs" />
-    <Compile Include="BusinessObjects\RuleRights.cs" />
+    <Compile Include="BusinessObjects\Rights.cs" />
     <Compile Include="Implementation\RulesApplier.cs" />
     <Compile Include="Implementation\RulesFinder.cs" />
     <Compile Include="Implementation\RuleValidator.cs" />

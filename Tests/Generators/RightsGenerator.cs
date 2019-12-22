@@ -7,12 +7,12 @@ namespace Tests.Generators
 {
     public static class RightsGenerator
     {
-        public static List<RuleRights> GenerateRights(bool merge)
+        public static List<Rights> GenerateRights(bool merge)
         {
-            var rights = new List<RuleRights>();
+            var rights = new List<Rights>();
             var productAccessesRoleI = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleI);
 
-            rights.Add(new RuleRights(
+            rights.Add(new Rights(
                 new Dictionary<Platform, Role> {{Platform.Health, Role.RoleI}},
                 new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesRoleI}}));
 
@@ -20,7 +20,7 @@ namespace Tests.Generators
             {
                 var productAccessesHigherRole = AllProductsArray.Products.ToDictionary(
                     product => product, r => Role.RoleII);
-                rights.Add(new RuleRights(
+                rights.Add(new Rights(
                     new Dictionary<Platform, Role> {{Platform.Health, Role.RoleII}},
                     new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesHigherRole}}));
             }
@@ -28,7 +28,7 @@ namespace Tests.Generators
             return rights;
         }
 
-        public static List<RuleRights> GenerateMultipleRightsForMerge()
+        public static List<Rights> GenerateMultipleRightsForMerge()
         {
             var rights = GenerateRights(true);
             var productAccessesWithAdmin = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleI);
@@ -40,7 +40,7 @@ namespace Tests.Generators
                 {Platform.Oorv, Role.RoleI}
             };
 
-            rights.Add(new RuleRights(
+            rights.Add(new Rights(
                 platformAccessesWithAdmin,
                 new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesWithAdmin}}));
             return rights;

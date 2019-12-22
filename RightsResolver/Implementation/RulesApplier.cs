@@ -20,17 +20,17 @@ namespace RightsResolver.Implementation
         }
 
         [NotNull]
-        public List<RuleRights> ApplyRules([NotNull] List<Rule> rules)
+        public List<Rights> ApplyRules([NotNull] List<Rule> rules)
         {
             return rules.Select(ApplyRule).ToList();
         }
 
-        private RuleRights ApplyRule([NotNull] Rule rule)
+        private Rights ApplyRule([NotNull] Rule rule)
         {
             var platformAccesses = rule.PlatformAccesses;
             var productAccesses = GetProductAccesses(rule.ProductAccesses);
 
-            return new RuleRights(platformAccesses, productAccesses);
+            return new Rights(platformAccesses, productAccesses);
         }
 
         private Dictionary<Platform, Dictionary<string, Role>> GetProductAccesses

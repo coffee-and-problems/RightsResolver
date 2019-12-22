@@ -53,12 +53,12 @@ namespace Tests.Tests
                 new Position(new[] {2}, "post2") });
         }
 
-        private RuleRights GetRights()
+        private Rights GetRights()
         {
             var expectedProductRights = AllProductsArray.Products
                 .ToDictionary(product => product, product => Role.RoleII);
             expectedProductRights["Product1"] = Role.Admin;
-            return new RuleRights(
+            return new Rights(
                 new Dictionary<Platform, Role> {{ Platform.Health, Role.Admin }, { Platform.Oorv, Role.Admin }},
                 new Dictionary<Platform, Dictionary<string, Role>> {{ Platform.Support, expectedProductRights }}
             );

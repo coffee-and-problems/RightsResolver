@@ -22,7 +22,7 @@ namespace Tests.Tests
         }
 
         [TestCaseSource(nameof(GenerateRightsMergerCases))]
-        public void TestRightsMerger(List<RuleRights> allRights, RuleRights expectedRights)
+        public void TestRightsMerger(List<Rights> allRights, Rights expectedRights)
         {
             var mergedRights = merger.MergeRights(allRights);
 
@@ -35,8 +35,8 @@ namespace Tests.Tests
             var mergeRights = RightsGenerator.GenerateRights(true);
             var multipleRights = RightsGenerator.GenerateMultipleRightsForMerge();
 
-            yield return new TestCaseData(new List<RuleRights>(),
-                    new RuleRights(new Dictionary<Platform, Role>(),
+            yield return new TestCaseData(new List<Rights>(),
+                    new Rights(new Dictionary<Platform, Role>(),
                         new Dictionary<Platform, Dictionary<string, Role>>()))
                 .SetName("Пустой лист");
             yield return new TestCaseData(noMergeRights, noMergeRights[0])
@@ -47,12 +47,12 @@ namespace Tests.Tests
                 .SetName("Объединение нескольких прав");
         }
 
-        private static RuleRights GetExpectedMergedRights(bool multiple)
+        private static Rights GetExpectedMergedRights(bool multiple)
         {
             if (!multiple)
             {
                 var productAccesses = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleII);
-                return new RuleRights(
+                return new Rights(
                     new Dictionary<Platform, Role> {{Platform.Health, Role.RoleII}},
                     new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccesses}});
             }
@@ -67,7 +67,7 @@ namespace Tests.Tests
                     {Platform.Health, Role.Admin},
                     {Platform.Oorv, Role.RoleI}
                 };
-                return new RuleRights(
+                return new Rights(
                     platformAccesses,
                     new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccesses}});
             }

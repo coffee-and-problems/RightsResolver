@@ -10,7 +10,7 @@ namespace RightsResolver.Implementation
     public class RightsMerger
     {
         [NotNull]
-        public RuleRights MergeRights([NotNull] List<RuleRights> allRights)
+        public Rights MergeRights([NotNull] List<Rights> allRights)
         {
             var platformAccesses = allRights.Select(right => right.PlatformAccesses).ToList();
             var productAccesses = allRights.Select(right => right.ProductAccesses).ToList();
@@ -20,7 +20,7 @@ namespace RightsResolver.Implementation
                 (roles1, roles2) => DictionaryExtension.MergeDictionaries(
                     new List<Dictionary<string, Role>> {roles1, roles2}, EnumExtension.Max));
 
-            return new RuleRights(mergedPlatformAccesses, mergedProductAccesses);
+            return new Rights(mergedPlatformAccesses, mergedProductAccesses);
         }
     }
 }
