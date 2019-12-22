@@ -4,17 +4,12 @@
   <Rule>
     <User>
       <Department>0</Department>
-      <Post>post0</Post>
+      <Post>Any</Post>
     </User>
 
     <Access>
       <Platform>Oorv</Platform>
-      <Role>Admin</Role>
-    </Access>
-
-    <Access>
-      <Platform>Manager</Platform>
-      <Role>RoleII</Role>
+      <Role>RoleI</Role>
     </Access>
 
     <Access>
@@ -22,10 +17,6 @@
       <ProductRole>
         <Product>All</Product>
         <Role>RoleI</Role>
-      </ProductRole>
-      <ProductRole>
-        <Product>Product1</Product>
-        <Role>Admin</Role>
       </ProductRole>
     </Access>
   </Rule>

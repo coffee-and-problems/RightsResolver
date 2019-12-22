@@ -27,5 +27,23 @@ namespace Tests.Generators
 
             return rights;
         }
+
+        public static List<RuleRights> GenerateMultipleRightsForMerge()
+        {
+            var rights = GenerateRights(true);
+            var productAccessesWithAdmin = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleI);
+            productAccessesWithAdmin["Product3"] = Role.Admin;
+            productAccessesWithAdmin["Product5"] = Role.Admin;
+            var platformAccessesWithAdmin = new Dictionary<Platform, Role>
+            {
+                {Platform.Health, Role.Admin},
+                {Platform.Oorv, Role.RoleI}
+            };
+
+            rights.Add(new RuleRights(
+                platformAccessesWithAdmin,
+                new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccessesWithAdmin}}));
+            return rights;
+        }
     }
 }

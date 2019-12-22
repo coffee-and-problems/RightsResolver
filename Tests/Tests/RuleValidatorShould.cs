@@ -1,11 +1,12 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
+using NUnit.Framework;
 using RightsResolver.Implementation;
 using Tests.Generators;
 
 namespace Tests.Tests
 {
     [TestFixture]
-    public class ValidatorShould
+    public class RuleValidatorShould
     {
         private RuleValidator validator;
 
@@ -15,24 +16,25 @@ namespace Tests.Tests
             validator = new RuleValidator();
         }
 
-        [Test]
-        public void ReturnTrue_OnValidRules()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void TestRulesValidatorOnValidRules(bool allProductsFlag)
         {
-            var validRules = RulesGenerator.GenerateValidRules(false);
+            var validRules = RulesGenerator.GenerateValidRules(allProductsFlag);
             foreach (var rule in validRules)
             {
-                Assert.IsTrue(validator.IsValid(rule));
+                validator.IsValid(rule).Should().BeTrue();
             }
         }
 
         [TestCase(true)]
         [TestCase(false)]
-        public void ReturnFalse_OnInvalidRules(bool wrongPlatformAccesses)
+        public void TestRulesValidatorOnInvalidRules(bool wrongPlatformAccesses)
         {
             var invalidRules = RulesGenerator.GenerateInvalidRules(wrongPlatformAccesses);
             foreach (var rule in invalidRules)
             {
-                Assert.IsFalse(validator.IsValid(rule));
+                validator.IsValid(rule).Should().BeFalse();
             }
         }
     }
