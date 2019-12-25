@@ -49,28 +49,28 @@ namespace Tests.Tests
 
         private static Rights GetExpectedMergedRights(bool multiple)
         {
+            Dictionary<string, Role> productAccesses;
+
             if (!multiple)
             {
-                var productAccesses = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleII);
+                productAccesses = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleII);
                 return new Rights(
                     new Dictionary<Platform, Role> {{Platform.Health, Role.RoleII}},
                     new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccesses}});
             }
-            else
+
+            productAccesses = AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleII);
+            productAccesses["Product3"] = Role.Admin;
+            productAccesses["Product5"] = Role.Admin;
+            var platformAccesses = new Dictionary<Platform, Role>
             {
-                var productAccesses =
-                    AllProductsArray.Products.ToDictionary(product => product, r => Role.RoleII);
-                productAccesses["Product3"] = Role.Admin;
-                productAccesses["Product5"] = Role.Admin;
-                var platformAccesses = new Dictionary<Platform, Role>
-                {
-                    {Platform.Health, Role.Admin},
-                    {Platform.Oorv, Role.RoleI}
-                };
-                return new Rights(
-                    platformAccesses,
-                    new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccesses}});
-            }
+                {Platform.Health, Role.Admin},
+                {Platform.Oorv, Role.RoleI}
+            };
+
+            return new Rights(
+                platformAccesses,
+                new Dictionary<Platform, Dictionary<string, Role>> {{Platform.Support, productAccesses}});
         }
     }
 }

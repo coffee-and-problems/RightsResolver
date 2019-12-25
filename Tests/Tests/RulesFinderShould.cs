@@ -34,7 +34,7 @@ namespace Tests.Tests
             yield return new TestCaseData(
                 GetUser(new Position(new[] { 2 }, "post2")),
                 new List<Rule> { AllRules[3] })
-                .SetName("Только одно правило подходитю Успех");
+                .SetName("Только одно правило подходит. Успех");
             yield return new TestCaseData(
                 GetUser(new Position(new[] { 0, 1 }, "post2")),
                 new List<Rule> { AllRules[0], AllRules[2] })

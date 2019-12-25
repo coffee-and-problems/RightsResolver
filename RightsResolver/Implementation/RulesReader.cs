@@ -30,7 +30,7 @@ namespace RightsResolver.Implementation
             var fileNames = GetFilesNameByPath(rulesPath);
             foreach (var file in fileNames)
             {
-                rules.ConcatOrCreate(ReadRulesFromFile(file));
+                rules.AddRange(ReadRulesFromFile(file));
             }
 
             return rules;

@@ -55,7 +55,6 @@
     <Compile Include="Implementation\Extensions\DictionaryExtension.cs" />
     <Compile Include="BusinessObjects\User.cs" />
     <Compile Include="Implementation\Extensions\EnumExtensions.cs" />
-    <Compile Include="Implementation\Extensions\ListExtension.cs" />
     <Compile Include="Implementation\Extensions\XmlNodeExtensions.cs" />
     <Compile Include="Implementation\RightsMerger.cs" />
     <Compile Include="BusinessObjects\Rights.cs" />
